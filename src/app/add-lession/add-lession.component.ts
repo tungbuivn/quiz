@@ -14,7 +14,10 @@ export class AddLessionComponent {
   answers: { code: string; value: any; color: string; }[] = [];
   correct: boolean = false;
   showResultEl: boolean = false;
-
+  @Input() urange: string = "20";
+  @Input() lrange: string = "10";
+  countCorrect: number = 0;
+  countWrong: number = 0;
   constructor() {
     this.refresh();
   }
@@ -36,8 +39,8 @@ export class AddLessionComponent {
     return array;
   }
   refresh() {
-    var urange = 20;
-    var lrange = 10;
+    var urange = parseInt(this.urange);
+    var lrange = parseInt(this.lrange);
     this.showResultEl = false;
 
     this.firstNumber = parseInt(Math.random() * 1234 + "") % (urange - lrange) + lrange;
@@ -54,6 +57,11 @@ export class AddLessionComponent {
   }
   showResult(value: number) {
     this.correct = value == this.result;
+    if (this.countCorrect) {
+      this.countCorrect++;
+    } else {
+      this.countWrong++;
+    }
     this.showResultEl = true;
   }
 

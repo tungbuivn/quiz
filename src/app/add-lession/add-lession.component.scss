@@ -23,3 +23,19 @@
   display: flex;
   flex: 1;
 }
+
+
+.mat-green {
+  &.mat-mdc-chip-selected {
+    background-color: green;
+
+    * {
+      color: white;
+    }
+  }
+
+
+
+
+
+}

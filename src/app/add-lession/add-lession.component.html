@@ -1,9 +1,14 @@
+<div>
+  <input [(ngModel)]="lrange">
+  <input [(ngModel)]="urange">
+  <span>{{countCorrect}}/{{countWrong}}</span>
+</div>
+
 <div class="mt20">
   <span>{{firstNumber}}</span>
   <span>&nbsp;+&nbsp;</span>
   <span>{{secondNumber}}</span>
   <span>&nbsp;=&nbsp;?</span>
-
 </div>
 <!-- <div *ngFor="let item of answers">
   <button class="p10" mat-raised-button (click)="showResult(item.value)">
