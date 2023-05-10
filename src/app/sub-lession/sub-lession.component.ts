@@ -10,6 +10,7 @@ export class SubLessionComponent extends AddLessionComponent {
   constructor() {
     super()
     this.operate = "-";
+    this.refresh();
   }
   override generateNumber() {
     var urange = parseInt(this.urange);
