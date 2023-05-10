@@ -9,6 +9,8 @@ import { ThemePalette } from '@angular/material/core';
 export class AddLessionComponent {
   firstNumber: number = 0;
   secondNumber: number = 0;
+  lastfirstNumber: number = -1;
+  lastsecondNumber: number = -1;
   result: number = 0;
   operate: string = '+';
   answers: { code: string; value: any; color: string; }[] = [];
@@ -38,29 +40,63 @@ export class AddLessionComponent {
 
     return array;
   }
-  refresh() {
+  generateNumber() {
     var urange = parseInt(this.urange);
     var lrange = parseInt(this.lrange);
     this.showResultEl = false;
+    var i = 0;
+    do {
+      this.firstNumber = parseInt(Math.random() * 1234 + "") % (urange - lrange) + lrange;
+    } while ((this.firstNumber == this.lastfirstNumber) && (i < 10));
+    i = 0;
+    do {
+      i = i + 1;
 
-    this.firstNumber = parseInt(Math.random() * 1234 + "") % (urange - lrange) + lrange;
-    this.secondNumber = parseInt(Math.random() * 1234 + "") % (urange - this.firstNumber);
+      this.secondNumber = parseInt(Math.random() * 1234 + "") % (urange - this.firstNumber);
+    } while ((this.lastsecondNumber == this.secondNumber) && (i < 10));
+  }
+  refresh() {
+    this.generateNumber();
+    this.lastfirstNumber = this.firstNumber;
+    this.lastsecondNumber = this.secondNumber;
+
     this.result = Function(`return ${this.firstNumber}${this.operate}${this.secondNumber}`)();
-    this.answers = this.shuffle([this.result, this.result + 1, this.result - 1, this.result + 2]).map((o, i) => {
-      return {
-        code: String.fromCharCode(65 + i),
-        color: o == this.result ? "green" : 'warn',
-        value: o
-      }
-    });
+    var merge = [this.result + 1, this.result - 1, this.result + 2, this.result + 3]
+      // remove all negative value
+      .filter(o => o >= 0)
+      .reduce((p: number[], q: any) => {
+        if (p.length < 3) {
+
+          p.push(q);
+        }
+        return p;
+      }, []);
+    this.answers = this.shuffle(
+      [this.result, ...merge]
+    )
+
+
+      // only take first 4 value
+      .map((o, i) => {
+
+        var rs = {
+          code: String.fromCharCode(65 + i),
+          color: o == this.result ? "green" : 'warn',
+          value: o
+        }
+
+        return rs;
+      }, []);
 
   }
   showResult(value: number) {
+
+    if (this.showResultEl) return;
     this.correct = value == this.result;
-    if (this.countCorrect) {
-      this.countCorrect++;
+    if (this.correct) {
+      this.countCorrect = this.countCorrect + 1;
     } else {
-      this.countWrong++;
+      this.countWrong = this.countWrong + 1;
     }
     this.showResultEl = true;
   }

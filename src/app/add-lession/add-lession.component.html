@@ -1,6 +1,7 @@
 <div>
   <input [(ngModel)]="lrange">
   <input [(ngModel)]="urange">
+  <!-- <input [(ngModel)]="operate"> -->
   <span>{{countCorrect}}/{{countWrong}}</span>
 </div>
 
@@ -16,7 +17,7 @@
   </button>
 </div> -->
 <mat-chip-listbox class="mat-mdc-chip-set-stacked mt50">
-  <mat-chip-option *ngFor="let item of answers" [color]="item.color">
+  <mat-chip-option *ngFor="let item of answers" (click)="showResult(item.value)" [color]=" item.color">
     <div [class]="item.color">
       {{item.code}}. {{item.value}}
     </div>
