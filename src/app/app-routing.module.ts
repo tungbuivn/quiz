@@ -9,7 +9,7 @@ const routes: Routes = [
   { path: 'cong', component: AddLessionComponent },
   { path: 'tru', component: SubLessionComponent },
   { path: 'choose', component: ChooseLessionComponent },
-  { path: '', redirectTo: '/choose', pathMatch: 'full' },
+  { path: '', redirectTo: 'choose', pathMatch: 'full' },
 
 ];
 
