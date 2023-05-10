@@ -13,3 +13,13 @@
 .mt20 {
   margin-top: 20px;
 }
+
+.full {
+  display: flex;
+  flex: 1;
+}
+
+.mat-mdc-standard-chip.mdc-evolution-chip--with-primary-graphic .mdc-evolution-chip__action--primary {
+  display: flex;
+  flex: 1;
+}

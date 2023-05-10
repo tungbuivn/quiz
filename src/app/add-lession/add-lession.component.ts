@@ -46,7 +46,7 @@ export class AddLessionComponent {
     this.answers = this.shuffle([this.result, this.result + 1, this.result - 1, this.result + 2]).map((o, i) => {
       return {
         code: String.fromCharCode(65 + i),
-        color: o == this.result ? "primary" : 'warn',
+        color: o == this.result ? "green" : 'warn',
         value: o
       }
     });
