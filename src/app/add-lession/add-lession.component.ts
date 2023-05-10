@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
+type ElType = { code: string; value: any; color: string; class: string }
 
 @Component({
   selector: 'app-add-lession',
@@ -13,7 +14,7 @@ export class AddLessionComponent {
   lastsecondNumber: number = -1;
   result: number = 0;
   operate: string = '+';
-  answers: { code: string; value: any; color: string; }[] = [];
+  answers: ElType[] = [];
   correct: boolean = false;
   showResultEl: boolean = false;
   @Input() urange: string = "20";
@@ -61,7 +62,7 @@ export class AddLessionComponent {
     this.lastsecondNumber = this.secondNumber;
 
     this.result = Function(`return ${this.firstNumber}${this.operate}${this.secondNumber}`)();
-    var merge = [this.result + 1, this.result - 1, this.result + 2, this.result + 3]
+    var merge = this.shuffle([this.result + 1, this.result - 1, this.result + 2, this.result - 2, this.result + 3, this.result - 3])
       // remove all negative value
       .filter(o => o >= 0)
       .reduce((p: number[], q: any) => {
@@ -82,22 +83,25 @@ export class AddLessionComponent {
         var rs = {
           code: String.fromCharCode(65 + i),
           color: o == this.result ? "green" : 'warn',
-          value: o
+          value: o,
+          class: ""
         }
 
         return rs;
       }, []);
 
   }
-  showResult(value: number) {
+  showResult(item: ElType) {
 
+    item.class = item.color;
+    this.correct = item.value == this.result;
     if (this.showResultEl) return;
-    this.correct = value == this.result;
     if (this.correct) {
       this.countCorrect = this.countCorrect + 1;
     } else {
       this.countWrong = this.countWrong + 1;
     }
+
     this.showResultEl = true;
   }
 

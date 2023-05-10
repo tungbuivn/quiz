@@ -17,25 +17,22 @@
 .full {
   display: flex;
   flex: 1;
-}
+  width: calc(100vw - 50px);
 
-.mat-mdc-standard-chip.mdc-evolution-chip--with-primary-graphic .mdc-evolution-chip__action--primary {
-  display: flex;
-  flex: 1;
-}
-
-
-.mat-green {
-  &.mat-mdc-chip-selected {
-    background-color: green;
-
-    * {
-      color: white;
-    }
+  .mdc-button__ripple {
+    width: 100%;
   }
 
+  &.green {
+    background-color: green;
+  }
 
+  &.warn {
+    background-color: red;
+  }
 
-
-
+  .mat-mdc-standard-chip.mdc-evolution-chip--with-primary-graphic .mdc-evolution-chip__action--primary {
+    display: flex;
+    flex: 1;
+  }
 }

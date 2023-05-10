@@ -7,22 +7,22 @@
 
 <div class="mt20">
   <span>{{firstNumber}}</span>
-  <span>&nbsp;+&nbsp;</span>
+  <span>&nbsp;{{operate}}&nbsp;</span>
   <span>{{secondNumber}}</span>
   <span>&nbsp;=&nbsp;?</span>
 </div>
-<!-- <div *ngFor="let item of answers">
-  <button class="p10" mat-raised-button (click)="showResult(item.value)">
+<div *ngFor="let item of answers">
+  <button [class]="'p10 full '+item.class" mat-raised-button (click)="showResult(item)">
     {{item.code}}. {{item.value}}
   </button>
-</div> -->
-<mat-chip-listbox class="mat-mdc-chip-set-stacked mt50">
+</div>
+<!-- <mat-chip-listbox class="mat-mdc-chip-set-stacked mt50">
   <mat-chip-option *ngFor="let item of answers" (click)="showResult(item.value)" [color]=" item.color">
     <div [class]="item.color">
       {{item.code}}. {{item.value}}
     </div>
   </mat-chip-option>
-</mat-chip-listbox>
+</mat-chip-listbox> -->
 <!-- <div [hidden]="!showResultEl">
   <button [hidden]="!correct" mat-flat-button color="green">Correct</button>
   <button [hidden]="correct" mat-raised-button color="warn">Wrong</button>
