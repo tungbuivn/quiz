@@ -11,6 +11,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { SubLessionComponent } from './sub-lession/sub-lession.component';
 import { ChooseLessionComponent } from './choose-lession/choose-lession.component';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,9 @@ import { ChooseLessionComponent } from './choose-lession/choose-lession.componen
     BrowserModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
