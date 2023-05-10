@@ -15,7 +15,7 @@ export class SubLessionComponent extends AddLessionComponent {
   override generateNumber() {
     var urange = parseInt(this.urange);
     var lrange = parseInt(this.lrange);
-    this.showResultEl = false;
+
     var i = 0;
     // do {
     i = i + 1

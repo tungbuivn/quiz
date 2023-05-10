@@ -12,13 +12,15 @@ import { MatIconModule } from '@angular/material/icon';
 import { SubLessionComponent } from './sub-lession/sub-lession.component';
 import { ChooseLessionComponent } from './choose-lession/choose-lession.component';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { AddRemLessionComponent } from './add-rem-lession/add-rem-lession.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AddLessionComponent,
     SubLessionComponent,
-    ChooseLessionComponent
+    ChooseLessionComponent,
+    AddRemLessionComponent
   ],
   imports: [
     FormsModule,

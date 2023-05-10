@@ -44,7 +44,7 @@ export class AddLessionComponent {
   generateNumber() {
     var urange = parseInt(this.urange);
     var lrange = parseInt(this.lrange);
-    this.showResultEl = false;
+
     var i = 0;
     do {
       this.firstNumber = parseInt(Math.random() * 1234 + "") % (urange - lrange) + lrange;
@@ -57,7 +57,9 @@ export class AddLessionComponent {
     } while ((this.lastsecondNumber == this.secondNumber) && (i < 10));
   }
   refresh() {
+    this.showResultEl = false;
     this.generateNumber();
+
     this.lastfirstNumber = this.firstNumber;
     this.lastsecondNumber = this.secondNumber;
 
