@@ -18,6 +18,7 @@ import { SummaryComponent } from './summary/summary.component';
 import { SubRemLessionComponent } from './sub-rem-lession/sub-rem-lession.component';
 import { NhanComponent } from './nhan/nhan.component';
 import { CongDocComponent } from './cong-doc/cong-doc.component';
+import { TruDocComponent } from './tru-doc/tru-doc.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { CongDocComponent } from './cong-doc/cong-doc.component';
     SummaryComponent,
     SubRemLessionComponent,
     NhanComponent,
-    CongDocComponent
+    CongDocComponent,
+    TruDocComponent
 
   ],
   imports: [

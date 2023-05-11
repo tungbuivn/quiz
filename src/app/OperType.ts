@@ -17,3 +17,4 @@ export interface ESqlSummary {
   minvalid: number;
   mtypename: string;
 }
+export type ElType = { code: string; value: any; color: string; class: string }

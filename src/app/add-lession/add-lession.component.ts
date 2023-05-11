@@ -1,10 +1,10 @@
 import { Component, Inject, Input } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 import { SqlDataService } from '../sql-data.service';
-import { EOperate } from '../OperType';
+import { EOperate, ElType } from '../OperType';
 
 
-type ElType = { code: string; value: any; color: string; class: string }
+
 
 @Component({
   selector: 'app-add-lession',
@@ -13,8 +13,15 @@ type ElType = { code: string; value: any; color: string; class: string }
 
 })
 export class AddLessionComponent {
+  posCount: number = 0;
   firstNumberArr: number[] = [];
   secondNumberArr: number[] = [];
+  resultArr: any[] = [];
+  prevAns: boolean = false;
+  rem: number = 0;
+  firstTime: boolean = false;
+
+
   firstNumber: number = 0;
   secondNumber: number = 0;
   lastfirstNumber: number = -1;
@@ -67,15 +74,8 @@ export class AddLessionComponent {
       this.secondNumber = parseInt(Math.random() * 1234 + "") % (urange - this.firstNumber);
     } while ((this.lastsecondNumber == this.secondNumber) && (i < 10));
   }
-  refresh() {
-    this.showResultEl = false;
-    this.generateNumber();
-
-    this.lastfirstNumber = this.firstNumber;
-    this.lastsecondNumber = this.secondNumber;
-
-    this.result = Function(`return ${this.firstNumber}${this.operate}${this.secondNumber}`)();
-    var merge = [this.result + 1, this.result - 1, this.result + 2, this.result - 2, this.result + 3, this.result - 3]
+  generateResultArray(num: number) {
+    var merge = [num + 1, num - 1, num + 2, num - 2, num + 3, num - 3]
       // remove all negative value
       .filter(o => o >= 0)
       .reduce((p: number[], q: any) => {
@@ -86,10 +86,8 @@ export class AddLessionComponent {
         return p;
       }, []);
     this.answers = this.shuffle(
-      [this.result, ...merge]
+      [num, ...merge]
     )
-
-
       // only take first 4 value
       .map((o, i) => {
 
@@ -102,6 +100,43 @@ export class AddLessionComponent {
 
         return rs;
       }, []);
+  }
+  refresh() {
+    this.showResultEl = false;
+    this.generateNumber();
+
+    this.lastfirstNumber = this.firstNumber;
+    this.lastsecondNumber = this.secondNumber;
+
+    this.result = Function(`return ${this.firstNumber}${this.operate}${this.secondNumber}`)();
+    this.generateResultArray(this.result);
+    // var merge = [this.result + 1, this.result - 1, this.result + 2, this.result - 2, this.result + 3, this.result - 3]
+    //   // remove all negative value
+    //   .filter(o => o >= 0)
+    //   .reduce((p: number[], q: any) => {
+    //     if (p.length < 3) {
+
+    //       p.push(q);
+    //     }
+    //     return p;
+    //   }, []);
+    // this.answers = this.shuffle(
+    //   [this.result, ...merge]
+    // )
+
+
+    //   // only take first 4 value
+    //   .map((o, i) => {
+
+    //     var rs = {
+    //       code: String.fromCharCode(65 + i),
+    //       color: o == this.result ? "green" : 'warn',
+    //       value: o,
+    //       class: ""
+    //     }
+
+    //     return rs;
+    //   }, []);
 
   }
   showResult(item: ElType) {

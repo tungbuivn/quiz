@@ -1,5 +1,8 @@
 <div>
+  <div>
 
+    <span>{{countCorrect}}/{{countWrong}}</span>
+  </div>
   <div class="box-con">
     <div class="center-oper">
       <div class="fl-end">
@@ -11,10 +14,19 @@
       </div>
       <div class="sep"></div>
       <div class="fl-end">
-        <button class="smnum" mat-stroked-button *ngFor="let item of firstNumberArr"></button>
+        <button class="smnum" mat-stroked-button *ngFor="let item of resultArr">{{item}}</button>
       </div>
 
     </div>
   </div>
+  <div *ngFor="let item of answers">
+    <button [class]="'p10 full '+item.class" mat-raised-button (click)="doAnswer(item)">
+      {{item.code}}. {{item.value}}
+    </button>
+  </div>
 
+
+  <div>
+    <button class="p50" mat-raised-button (click)="refresh()">Continue</button>
+  </div>
 </div>

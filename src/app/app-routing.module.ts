@@ -7,6 +7,7 @@ import { SubLessionComponent } from './sub-lession/sub-lession.component';
 import { SummaryComponent } from './summary/summary.component';
 import { SubRemLessionComponent } from './sub-rem-lession/sub-rem-lession.component';
 import { CongDocComponent } from './cong-doc/cong-doc.component';
+import { TruDocComponent } from './tru-doc/tru-doc.component';
 
 const routes: Routes = [
 
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path: 'cong-doc', component: CongDocComponent },
   { path: 'tru', component: SubLessionComponent },
   { path: 'tru-nho', component: SubRemLessionComponent },
+  { path: 'tru-doc', component: TruDocComponent },
   { path: 'summary', component: SummaryComponent },
   { path: 'choose', component: ChooseLessionComponent },
   { path: '', redirectTo: 'choose', pathMatch: 'full' },
