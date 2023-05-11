@@ -7,22 +7,15 @@ import { EOperate, ESqlSummary } from './OperType';
 export class SqlDataService {
   _db: any;
   constructor() {
-    this._db = (window as any).openDatabase('lv1', '1.0', 'sqlite history', 5 * 1024 * 1024);
-    this._db.transaction(function(tx: any) {
-      tx.executeSql("CREATE TABLE IF NOT EXISTS RS(id integer primary key autoincrement,mdate integer, mtype integer,mvalid integer,minvalid integer)");
-      // tx.executeSql("INSERT INTO USER (id, name) VALUES (?,?)", [1, "peter"]);
-      // tx.executeSql("INSERT INTO USER (id, name) VALUES (?,?)", [2, "paul"]);
+    try {
+      this._db = (window as any).openDatabase('lv1', '1.0', 'sqlite history', 5 * 1024 * 1024);
+      this._db.transaction(function(tx: any) {
+        tx.executeSql("CREATE TABLE IF NOT EXISTS RS(id integer primary key autoincrement,mdate integer, mtype integer,mvalid integer,minvalid integer)");
+      });
+    } catch (e) {
+      console.log(e)
+    }
 
-      // tx.executeSql("SELECT * FROM USER", [], (transaction, result) => {
-      //   console.log(result.rows.item(0));
-      //   console.log(result.rows.item(1));
-      // },
-      //   (transaction, error) => {
-
-      //   }
-      // );
-
-    });
   }
   getDateValue(inc: number): number {
     var a = new Date();

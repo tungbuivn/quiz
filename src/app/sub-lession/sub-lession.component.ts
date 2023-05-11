@@ -10,13 +10,9 @@ import { EOperate } from '../OperType';
 export class SubLessionComponent extends AddLessionComponent {
 
   override init(): void {
-
     this.opertateEnum = EOperate.Tru;
-
-
-
     this.operate = "-";
-    this.refresh();
+    super.init();
   }
   override generateNumber() {
     var urange = parseInt(this.urange);

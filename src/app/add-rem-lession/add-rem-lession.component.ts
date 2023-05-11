@@ -15,7 +15,7 @@ export class AddRemLessionComponent extends AddLessionComponent {
   override init(): void {
     this.opertateEnum = EOperate.CongNho;
     this.urange = "90";
-    this.refresh();
+    super.init();
 
   }
   override generateNumber() {
@@ -36,7 +36,7 @@ export class AddRemLessionComponent extends AddLessionComponent {
     // hang chuc
     var chuc = this.shuffle([1, 2, 3, 4, 5, 6, 7, 8, 9].filter(o => o < (urange - lrange) / 10))[0] || 1;
 
-    this.firstNumber = unit2 + chuc * 10;
+    this.firstNumber = unit2;//+ chuc * 10;
 
     this.secondNumber = unit;
   }

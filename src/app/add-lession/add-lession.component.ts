@@ -2,15 +2,19 @@ import { Component, Inject, Input } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 import { SqlDataService } from '../sql-data.service';
 import { EOperate } from '../OperType';
+
+
 type ElType = { code: string; value: any; color: string; class: string }
 
 @Component({
   selector: 'app-add-lession',
   templateUrl: './add-lession.component.html',
   styleUrls: ['./add-lession.component.scss'],
-  providers: [SqlDataService]
+
 })
 export class AddLessionComponent {
+  firstNumberArr: number[] = [];
+  secondNumberArr: number[] = [];
   firstNumber: number = 0;
   secondNumber: number = 0;
   lastfirstNumber: number = -1;
@@ -27,7 +31,6 @@ export class AddLessionComponent {
   countWrong: number = 0;
   constructor(protected sqlData: SqlDataService) {
     this.init();
-
   }
   init() {
     this.refresh();

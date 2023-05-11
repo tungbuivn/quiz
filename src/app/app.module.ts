@@ -15,6 +15,10 @@ import { ChooseLessionComponent } from './choose-lession/choose-lession.componen
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { AddRemLessionComponent } from './add-rem-lession/add-rem-lession.component';
 import { SummaryComponent } from './summary/summary.component';
+import { SubRemLessionComponent } from './sub-rem-lession/sub-rem-lession.component';
+import { NhanComponent } from './nhan/nhan.component';
+import { CongDocComponent } from './cong-doc/cong-doc.component';
+
 
 @NgModule({
   declarations: [
@@ -23,7 +27,11 @@ import { SummaryComponent } from './summary/summary.component';
     SubLessionComponent,
     ChooseLessionComponent,
     AddRemLessionComponent,
-    SummaryComponent
+    SummaryComponent,
+    SubRemLessionComponent,
+    NhanComponent,
+    CongDocComponent
+
   ],
   imports: [
     MatTableModule,

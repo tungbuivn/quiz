@@ -5,12 +5,16 @@ import { AddRemLessionComponent } from './add-rem-lession/add-rem-lession.compon
 import { ChooseLessionComponent } from './choose-lession/choose-lession.component';
 import { SubLessionComponent } from './sub-lession/sub-lession.component';
 import { SummaryComponent } from './summary/summary.component';
+import { SubRemLessionComponent } from './sub-rem-lession/sub-rem-lession.component';
+import { CongDocComponent } from './cong-doc/cong-doc.component';
 
 const routes: Routes = [
 
   { path: 'cong', component: AddLessionComponent },
   { path: 'cong-nho', component: AddRemLessionComponent },
+  { path: 'cong-doc', component: CongDocComponent },
   { path: 'tru', component: SubLessionComponent },
+  { path: 'tru-nho', component: SubRemLessionComponent },
   { path: 'summary', component: SummaryComponent },
   { path: 'choose', component: ChooseLessionComponent },
   { path: '', redirectTo: 'choose', pathMatch: 'full' },
