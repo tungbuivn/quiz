@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AddLessionComponent } from '../add-lession/add-lession.component';
+import { EOperate } from '../OperType';
 
 @Component({
   selector: 'app-sub-lession',
@@ -7,8 +8,13 @@ import { AddLessionComponent } from '../add-lession/add-lession.component';
   styleUrls: ['../add-lession/add-lession.component.scss']
 })
 export class SubLessionComponent extends AddLessionComponent {
-  constructor() {
-    super()
+
+  override init(): void {
+
+    this.opertateEnum = EOperate.Tru;
+
+
+
     this.operate = "-";
     this.refresh();
   }

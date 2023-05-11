@@ -1,11 +1,14 @@
-import { Component, Input } from '@angular/core';
+import { Component, Inject, Input } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
+import { SqlDataService } from '../sql-data.service';
+import { EOperate } from '../OperType';
 type ElType = { code: string; value: any; color: string; class: string }
 
 @Component({
   selector: 'app-add-lession',
   templateUrl: './add-lession.component.html',
-  styleUrls: ['./add-lession.component.scss']
+  styleUrls: ['./add-lession.component.scss'],
+  providers: [SqlDataService]
 })
 export class AddLessionComponent {
   firstNumber: number = 0;
@@ -14,6 +17,7 @@ export class AddLessionComponent {
   lastsecondNumber: number = -1;
   result: number = 0;
   operate: string = '+';
+  opertateEnum: EOperate = EOperate.Cong;
   answers: ElType[] = [];
   correct: boolean = false;
   showResultEl: boolean = false;
@@ -21,7 +25,11 @@ export class AddLessionComponent {
   @Input() lrange: string = "10";
   countCorrect: number = 0;
   countWrong: number = 0;
-  constructor() {
+  constructor(protected sqlData: SqlDataService) {
+    this.init();
+
+  }
+  init() {
     this.refresh();
   }
   shuffle(array: any[]) {
@@ -64,7 +72,7 @@ export class AddLessionComponent {
     this.lastsecondNumber = this.secondNumber;
 
     this.result = Function(`return ${this.firstNumber}${this.operate}${this.secondNumber}`)();
-    var merge = this.shuffle([this.result + 1, this.result - 1, this.result + 2, this.result - 2, this.result + 3, this.result - 3])
+    var merge = [this.result + 1, this.result - 1, this.result + 2, this.result - 2, this.result + 3, this.result - 3]
       // remove all negative value
       .filter(o => o >= 0)
       .reduce((p: number[], q: any) => {
@@ -103,6 +111,7 @@ export class AddLessionComponent {
     } else {
       this.countWrong = this.countWrong + 1;
     }
+    this.sqlData.update(this.opertateEnum, this.correct)
 
     this.showResultEl = true;
   }

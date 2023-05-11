@@ -7,12 +7,14 @@ import { AppComponent } from './app.component';
 import { AddLessionComponent } from './add-lession/add-lession.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from "@angular/material/button";
+import { MatTableModule } from '@angular/material/table'
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { SubLessionComponent } from './sub-lession/sub-lession.component';
 import { ChooseLessionComponent } from './choose-lession/choose-lession.component';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { AddRemLessionComponent } from './add-rem-lession/add-rem-lession.component';
+import { SummaryComponent } from './summary/summary.component';
 
 @NgModule({
   declarations: [
@@ -20,9 +22,11 @@ import { AddRemLessionComponent } from './add-rem-lession/add-rem-lession.compon
     AddLessionComponent,
     SubLessionComponent,
     ChooseLessionComponent,
-    AddRemLessionComponent
+    AddRemLessionComponent,
+    SummaryComponent
   ],
   imports: [
+    MatTableModule,
     FormsModule,
     MatIconModule,
     MatChipsModule,

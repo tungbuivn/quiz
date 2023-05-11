@@ -4,12 +4,14 @@ import { AddLessionComponent } from './add-lession/add-lession.component';
 import { AddRemLessionComponent } from './add-rem-lession/add-rem-lession.component';
 import { ChooseLessionComponent } from './choose-lession/choose-lession.component';
 import { SubLessionComponent } from './sub-lession/sub-lession.component';
+import { SummaryComponent } from './summary/summary.component';
 
 const routes: Routes = [
 
   { path: 'cong', component: AddLessionComponent },
   { path: 'cong-nho', component: AddRemLessionComponent },
   { path: 'tru', component: SubLessionComponent },
+  { path: 'summary', component: SummaryComponent },
   { path: 'choose', component: ChooseLessionComponent },
   { path: '', redirectTo: 'choose', pathMatch: 'full' },
 

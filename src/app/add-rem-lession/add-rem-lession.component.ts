@@ -1,17 +1,22 @@
 import { Component } from '@angular/core';
 import { AddLessionComponent } from '../add-lession/add-lession.component';
+import { SqlDataService } from '../sql-data.service';
+import { EOperate } from '../OperType';
 
 // cong co nho
 @Component({
   selector: 'app-add-rem-lession',
   templateUrl: '../add-lession/add-lession.component.html',
-  styleUrls: ['../add-lession/add-lession.component.scss']
+  styleUrls: ['../add-lession/add-lession.component.scss', './add-rem-lession.component.scss'],
+
 })
 export class AddRemLessionComponent extends AddLessionComponent {
-  constructor() {
-    super()
-    this.urange = "40";
+
+  override init(): void {
+    this.opertateEnum = EOperate.CongNho;
+    this.urange = "90";
     this.refresh();
+
   }
   override generateNumber() {
     var urange = parseInt(this.urange);
@@ -22,15 +27,16 @@ export class AddRemLessionComponent extends AddLessionComponent {
       return;
     }
     this.showResultEl = false;
-    var i = 0;
 
     // num from 2->9
     var unit = this.shuffle([2, 3, 4, 5, 6, 7, 8, 9])[0];
-    // unit 2 inrange 11..urange
-    var unit2 = this.shuffle([1, 2, 3, 4, 5, 6, 7, 8, 9].filter(num => num + unit >= 11))[0] + parseInt(Math.random() * 1234 + "") % (urange - lrange) + lrange;
-    // var unit2 = parseInt(Math.random() * 1234 + "") % (urange - 11) + 11;
-    // 40-10->30
-    this.firstNumber = unit2;
+
+    // unit 2 inrange 1..9
+    var unit2 = this.shuffle([1, 2, 3, 4, 5, 6, 7, 8, 9].filter(num => num + unit >= 11))[0];
+    // hang chuc
+    var chuc = this.shuffle([1, 2, 3, 4, 5, 6, 7, 8, 9].filter(o => o < (urange - lrange) / 10))[0] || 1;
+
+    this.firstNumber = unit2 + chuc * 10;
 
     this.secondNumber = unit;
   }
