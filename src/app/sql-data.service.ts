@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { EOperate, ESqlSummary } from './OperType';
+import { ResultCountService } from './result-count.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SqlDataService {
   _db: any;
-  constructor() {
+  constructor(private resultCount: ResultCountService) {
     try {
       this._db = (window as any).openDatabase('lv1', '1.0', 'sqlite history', 5 * 1024 * 1024);
       this._db.transaction(function(tx: any) {
@@ -48,6 +49,7 @@ export class SqlDataService {
     })
   }
   update(operator: EOperate, valid: boolean): Promise<void> {
+    this.resultCount.onUpdate.next(valid);
     return new Promise((resolve, reject) => {
 
       var fully = this.getDateValue(0);

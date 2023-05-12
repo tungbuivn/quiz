@@ -1,0 +1,14 @@
+.full {
+  display: flex;
+  width: 100%;
+}
+
+.fill {
+  flex: 1;
+}
+
+.vert {
+  display: flex;
+  align-items: center;
+  // margin-right: 10px;
+}

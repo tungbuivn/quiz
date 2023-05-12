@@ -19,6 +19,8 @@ import { SubRemLessionComponent } from './sub-rem-lession/sub-rem-lession.compon
 import { NhanComponent } from './nhan/nhan.component';
 import { CongDocComponent } from './cong-doc/cong-doc.component';
 import { TruDocComponent } from './tru-doc/tru-doc.component';
+import { PageHeaderComponent } from './page-header/page-header.component';
+
 
 
 @NgModule({
@@ -32,7 +34,8 @@ import { TruDocComponent } from './tru-doc/tru-doc.component';
     SubRemLessionComponent,
     NhanComponent,
     CongDocComponent,
-    TruDocComponent
+    TruDocComponent,
+    PageHeaderComponent
 
   ],
   imports: [
@@ -43,7 +46,8 @@ import { TruDocComponent } from './tru-doc/tru-doc.component';
     MatButtonModule,
     BrowserAnimationsModule,
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+
   ],
   providers: [
     { provide: LocationStrategy, useClass: HashLocationStrategy },

@@ -34,8 +34,8 @@ export class AddLessionComponent {
   showResultEl: boolean = false;
   @Input() urange: string = "20";
   @Input() lrange: string = "10";
-  countCorrect: number = 0;
-  countWrong: number = 0;
+  // countCorrect: number = 0;
+  // countWrong: number = 0;
   constructor(protected sqlData: SqlDataService) {
     this.init();
   }
@@ -144,11 +144,11 @@ export class AddLessionComponent {
     item.class = item.color;
     this.correct = item.value == this.result;
     if (this.showResultEl) return;
-    if (this.correct) {
-      this.countCorrect = this.countCorrect + 1;
-    } else {
-      this.countWrong = this.countWrong + 1;
-    }
+    // if (this.correct) {
+    //   this.countCorrect = this.countCorrect + 1;
+    // } else {
+    //   this.countWrong = this.countWrong + 1;
+    // }
     this.sqlData.update(this.opertateEnum, this.correct)
 
     this.showResultEl = true;

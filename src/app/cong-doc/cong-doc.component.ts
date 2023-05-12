@@ -52,7 +52,7 @@ export class CongDocComponent extends AddLessionComponent {
         this.prevAns = valid;
         if (!valid) {
           this.sqlData.update(this.opertateEnum, false);
-          this.countWrong = this.countWrong + 1;
+          // this.countWrong = this.countWrong + 1;
         }
       }
       if (valid) {
@@ -70,11 +70,11 @@ export class CongDocComponent extends AddLessionComponent {
 
         if (this.prevAns) {
           this.sqlData.update(this.opertateEnum, correct)
-          if (correct) {
-            this.countCorrect = this.countCorrect + 1;
-          } else {
-            this.countWrong = this.countWrong + 1;
-          }
+          // if (correct) {
+          //   this.countCorrect = this.countCorrect + 1;
+          // } else {
+          //   this.countWrong = this.countWrong + 1;
+          // }
         }
 
 
