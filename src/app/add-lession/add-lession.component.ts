@@ -40,6 +40,7 @@ export class AddLessionComponent {
   constructor(protected sqlData: SqlDataService, private resultCount: ResultCountService) {
     this.init();
   }
+  randomNumberArr: number[] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 
   init() {
     this.refresh();
@@ -76,7 +77,7 @@ export class AddLessionComponent {
       this.secondNumber = parseInt(Math.random() * 1234 + "") % (urange - this.firstNumber);
     } while ((this.lastsecondNumber == this.secondNumber) && (i < 10));
   }
-  generateResultArray(num: number) {
+  generateResultArray(num: number, saveResult: boolean = true) {
     var merge = [num + 1, num - 1, num + 2, num - 2, num + 3, num - 3]
       // remove all negative value
       .filter(o => o >= 0)
@@ -87,21 +88,25 @@ export class AddLessionComponent {
         }
         return p;
       }, []);
-    this.answers = this.shuffle(
+    var rs = this.shuffle(
       [num, ...merge]
     )
       // only take first 4 value
       .map((o, i) => {
 
-        var rs = {
+        var rs: ElType = {
           code: String.fromCharCode(65 + i),
-          color: o == this.result ? "green" : 'warn',
+          color: o == num ? "green" : 'warn',
           value: o,
           class: ""
         }
 
         return rs;
       }, []);
+    if (saveResult) {
+      this.answers = rs;
+    }
+    return rs;
   }
   refresh() {
     this.showResultEl = false;

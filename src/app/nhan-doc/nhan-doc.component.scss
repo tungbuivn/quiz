@@ -1,0 +1,24 @@
+.bcen {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.bright {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.row {
+  display: flex;
+}
+
+.w36 {
+  max-width: 36px;
+  min-width: 36px;
+}
+
+.mt20 {
+  margin-top: 10px;
+
+}

@@ -10,6 +10,7 @@ import { CongDocComponent } from './cong-doc/cong-doc.component';
 import { TruDocComponent } from './tru-doc/tru-doc.component';
 import { NhanComponent } from './nhan/nhan.component';
 import { ChiaComponent } from './chia/chia.component';
+import { NhanDocComponent } from './nhan-doc/nhan-doc.component';
 
 const routes: Routes = [
 
@@ -20,6 +21,7 @@ const routes: Routes = [
   { path: 'tru-nho', component: SubRemLessionComponent },
   { path: 'tru-doc', component: TruDocComponent },
   { path: 'nhan', component: NhanComponent },
+  { path: 'nhan-doc', component: NhanDocComponent },
   { path: 'chia', component: ChiaComponent },
   { path: 'summary', component: SummaryComponent },
   { path: 'choose', component: ChooseLessionComponent },
