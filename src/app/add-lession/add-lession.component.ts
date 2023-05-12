@@ -1,7 +1,8 @@
-import { Component, Inject, Input } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 import { SqlDataService } from '../sql-data.service';
 import { EOperate, ElType } from '../OperType';
+import { ResultCountService } from '../result-count.service';
 
 
 
@@ -36,9 +37,10 @@ export class AddLessionComponent {
   @Input() lrange: string = "10";
   // countCorrect: number = 0;
   // countWrong: number = 0;
-  constructor(protected sqlData: SqlDataService) {
+  constructor(protected sqlData: SqlDataService, private resultCount: ResultCountService) {
     this.init();
   }
+
   init() {
     this.refresh();
   }
@@ -143,6 +145,7 @@ export class AddLessionComponent {
 
     item.class = item.color;
     this.correct = item.value == this.result;
+    // this.resultCount.onUpdate.next(this.correct)
     if (this.showResultEl) return;
     // if (this.correct) {
     //   this.countCorrect = this.countCorrect + 1;

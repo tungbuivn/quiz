@@ -34,7 +34,7 @@ export class SqlDataService {
       var fromY = this.getDateValue(-7);
       var toY = this.getDateValue(0);
       this._db.transaction((tx: any) => {
-        tx.executeSql(`SELECT *  FROM RS WHERE mdate>=? and mdate <=?`, [fromY, toY], (_transaction: any, result: any) => {
+        tx.executeSql(`SELECT *  FROM RS WHERE mdate>=? and mdate <=? ORDER BY mdate desc`, [fromY, toY], (_transaction: any, result: any) => {
           var book, i, rs = [], booksNumber = result.rows.length;
           for (i = 0; i < booksNumber; i++) {
             book = result.rows.item(i);

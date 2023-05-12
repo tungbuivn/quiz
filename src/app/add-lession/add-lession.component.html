@@ -1,6 +1,10 @@
-<div>
-  <input class="inp1" [(ngModel)]="lrange">
-  <input class="inp1" [(ngModel)]="urange">
+<div class="row">
+  <mat-form-field class="inp1">
+    <input matInput type="text" [(ngModel)]="lrange">
+  </mat-form-field>
+  <mat-form-field class="ml10 inp1 inp2">
+    <input matInput type="text" [(ngModel)]="urange">
+  </mat-form-field>
   <!-- <input [(ngModel)]="operate"> -->
 </div>
 

@@ -4,28 +4,21 @@ import { EOperate } from '../OperType';
 
 @Component({
   selector: 'app-nhan',
-  templateUrl: './nhan.component.html',
-  styleUrls: ['./nhan.component.scss']
+  templateUrl: '../add-lession/add-lession.component.html',
+  styleUrls: ['../add-lession/add-lession.component.scss', './nhan.component.scss']
 })
 export class NhanComponent extends AddLessionComponent {
   override init(): void {
+    this.lrange = "2";
     this.opertateEnum = EOperate.Nhan;
-    this.operate = "x";
+    this.operate = "*";
     super.refresh();
   }
   override generateNumber() {
-    var urange = parseInt(this.urange);
-    var lrange = parseInt(this.lrange);
 
-    var i = 0;
-    do {
-      this.firstNumber = parseInt(Math.random() * 1234 + "") % (urange - lrange) + lrange;
-    } while ((this.firstNumber == this.lastfirstNumber) && (i < 10));
-    i = 0;
-    do {
-      i = i + 1;
+    this.firstNumber = parseInt(this.lrange)
+    this.secondNumber = this.shuffle([1, 2, 3, 4, 5, 6, 7, 8, 9])[0];
 
-      this.secondNumber = parseInt(Math.random() * 1234 + "") % (urange - this.firstNumber);
-    } while ((this.lastsecondNumber == this.secondNumber) && (i < 10));
+
   }
 }
