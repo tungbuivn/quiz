@@ -25,3 +25,29 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+# Các phép toán
+## Cộng
+- Hộp input để nhập phạm vi phép cộng
+## Cộng nhớ
+- Thực hiện các phép tính cộng các số đơn với kết quả > 10
+## Cộng dọc
+- Thực hiện phép cộng theo chiều dọc trong phạm vi 100
+- Hộp input nhập phép toán tuỳ chọn thay cho giấy nháp để hỗ trợ làm bài tập giáo viên giao
+## Trừ
+- Hộp input để nhập phạm vi phép trừ
+## Trừ nhớ
+- Các phép trừ có nhớ trong phạm vi 20
+## Trừ dọc
+- Các phép trừ trong phạm vi 20
+- Hộp input hỗ trợ như giấy nháp
+## Nhân
+- Hộp input dùng để chọn bảng nhân (2,3,4,5,6,7,8,9)
+## Nhân dọc
+- 2 Hộp input bên trên nhập phép toán muốn nhân của người dùng
+- 2 Hộp input bên dưới để chọn độ dài mỗi số hạng của phép nhân
+## Chia
+- Hộp input chọn bảng nhân muốn thực hiện (2,3,4,5,6,7,8,9)
+## Chia dọc
+- Thực hiện phép chia theo chiều dọc trong phạm vi 100
+- Hộp input để tuỳ chỉnh số bị chia/ số chia của phép chia

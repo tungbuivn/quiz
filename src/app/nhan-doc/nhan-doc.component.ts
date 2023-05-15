@@ -142,7 +142,6 @@ export class NhanDocComponent extends AddLessionComponent implements OnInit {
           this.completed = true;
           this.sqlData.update(this.opertateEnum, false);
         }
-
       }
     }
     var done = false;
