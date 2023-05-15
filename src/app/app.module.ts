@@ -24,6 +24,7 @@ import { TruDocComponent } from './tru-doc/tru-doc.component';
 import { PageHeaderComponent } from './page-header/page-header.component';
 import { ChiaComponent } from './chia/chia.component';
 import { NhanDocComponent } from './nhan-doc/nhan-doc.component';
+import { ChiaDocComponent } from './chia-doc/chia-doc.component';
 
 
 
@@ -41,7 +42,8 @@ import { NhanDocComponent } from './nhan-doc/nhan-doc.component';
     TruDocComponent,
     PageHeaderComponent,
     ChiaComponent,
-    NhanDocComponent
+    NhanDocComponent,
+    ChiaDocComponent
 
   ],
   imports: [

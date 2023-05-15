@@ -36,3 +36,40 @@
 .row {
   display: flex;
 }
+
+.smnum {
+  max-width: 36px;
+  min-width: 36px !important;
+}
+
+.w36 {
+  min-width: 36px;
+  max-width: 36px;
+}
+
+.mt50 {
+  margin-top: 50px;
+}
+
+.full {
+  display: flex;
+  flex: 1;
+  width: calc(100vw - 50px);
+
+  .mdc-button__ripple {
+    width: 100%;
+  }
+
+  &.green {
+    background-color: green !important;
+  }
+
+  &.warn {
+    background-color: red !important;
+  }
+
+  .mat-mdc-standard-chip.mdc-evolution-chip--with-primary-graphic .mdc-evolution-chip__action--primary {
+    display: flex;
+    flex: 1;
+  }
+}

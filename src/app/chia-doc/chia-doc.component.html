@@ -1,0 +1,60 @@
+<div>
+  <div class="row">
+    <mat-form-field class="inp1">
+      <input matInput type="text" [(ngModel)]="num1" (change)="updateInput(2)">
+    </mat-form-field>
+    <mat-form-field class="ml10 inp1 inp2">
+      <input matInput type="text" [(ngModel)]="num2" (change)="updateInput(2)">
+    </mat-form-field>
+  </div>
+  <div class="row">
+    <mat-form-field class="inp1">
+      <input matInput type="text" [(ngModel)]="lrange">
+    </mat-form-field>
+    <mat-form-field class="ml10 inp1 inp2">
+      <input matInput type="text" [(ngModel)]="urange">
+    </mat-form-field>
+    <!-- <input [(ngModel)]="operate"> -->
+  </div>
+  <div class="row">
+
+
+    <div class="br">
+      <div class="row">
+        <button class="smnum" mat-stroked-button *ngFor="let item of divArr">{{item}}</button>
+      </div>
+      <div *ngFor="let item of resultRows">
+        <div class="row">
+          <button class="smnum" mat-stroked-button *ngFor="let it of item.multipleRs"
+            (click)="showChoose(it)">{{it.disp}}</button>
+        </div>
+        <div class="sep"></div>
+        <div class="row">
+          <button class="smnum" (click)="showChoose(it)" mat-stroked-button
+            *ngFor="let it of item.subRs">{{it.disp}}</button>
+        </div>
+      </div>
+    </div>
+    <div class="ml20">
+      <div class="row">
+        <button class="smnum" mat-stroked-button>{{divBy}}</button>
+      </div>
+      <div class="sep uml"></div>
+      <div class="row">
+        <button class="smnum" mat-stroked-button *ngFor="let it of finalRows"
+          (click)="showChoose(it)">{{it.disp}}</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt50">
+
+    <button [class]="'p10 full '+item.class" *ngFor="let item of answers" mat-raised-button (click)="doAnswer(item)">
+      {{item.code}}. {{item.value}}
+    </button>
+
+  </div>
+  <div class="mt50">
+    <button class="p50" mat-raised-button (click)="refresh()">Continue</button>
+  </div>
+</div>

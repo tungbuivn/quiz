@@ -11,6 +11,7 @@ import { TruDocComponent } from './tru-doc/tru-doc.component';
 import { NhanComponent } from './nhan/nhan.component';
 import { ChiaComponent } from './chia/chia.component';
 import { NhanDocComponent } from './nhan-doc/nhan-doc.component';
+import { ChiaDocComponent } from './chia-doc/chia-doc.component';
 
 const routes: Routes = [
 
@@ -23,6 +24,7 @@ const routes: Routes = [
   { path: 'nhan', component: NhanComponent },
   { path: 'nhan-doc', component: NhanDocComponent },
   { path: 'chia', component: ChiaComponent },
+  { path: 'chia-doc', component: ChiaDocComponent },
   { path: 'summary', component: SummaryComponent },
   { path: 'choose', component: ChooseLessionComponent },
   { path: '', redirectTo: 'choose', pathMatch: 'full' },

@@ -51,3 +51,5 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 ## Chia dọc
 - Thực hiện phép chia theo chiều dọc trong phạm vi 100
 - Hộp input để tuỳ chỉnh số bị chia/ số chia của phép chia
+## Summary
+Báo cáo số lượng phép tính thực hiện theo ngày, các phép toán đã thực hiện, số lượng phép tính đúng, sai

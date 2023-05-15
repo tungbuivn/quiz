@@ -151,7 +151,7 @@ export class NhanDocComponent extends AddLessionComponent implements OnInit {
       done = this.resultRows.reduce((p, a) => [...p, ...a], []).filter(o => o.disp == "?").length == 0;
     }
 
-    console.log("done", done, this.finalRow, "com:", this.completed);
+    // console.log("done", done, this.finalRow, "com:", this.completed);
     if (done) {
       if (!this.completed) {
         this.completed = true;
