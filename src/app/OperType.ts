@@ -8,7 +8,8 @@ export enum EOperate {
   TruDoc = 6,
   Nhan = 7,
   Chia = 8,
-  NhanDoc = 9
+  NhanDoc = 9,
+  ChiaDoc = 10
 }
 export interface ESqlSummary {
   id: number;

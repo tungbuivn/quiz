@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AddLessionComponent } from '../add-lession/add-lession.component';
-import { ElType } from '../OperType';
+import { EOperate, ElType } from '../OperType';
 
 @Component({
   selector: 'app-chia-doc',
@@ -20,6 +20,8 @@ export class ChiaDocComponent extends AddLessionComponent implements OnInit {
   ngOnInit(): void {
     this.lrange = "2";
     this.urange = "1";
+    this.operate = "/";
+    this.opertateEnum = EOperate.ChiaDoc
     this.refresh();
   }
   override refresh(): void {
