@@ -36,4 +36,22 @@ export class TruDocComponent extends CongDocComponent {
     this.generateResultArray(sum);
 
   }
+  override updateInput(type: number) {
+    super.updateInput(1);
+    var n1 = parseInt(this.num1);
+    var n2 = parseInt(this.num2);
+    if (isNaN(n1) || isNaN(n2)) {
+      return;
+    }
+
+    var last1 = this.firstNumberArr[this.firstNumberArr.length - 1];
+    var last2 = this.secondNumberArr[this.secondNumberArr.length - 1];
+    this.resultArr = ["?", "?"];
+
+    this.rem = last1 - last2 < 0 ? 1 : 0;
+    this.result = last1 - last2 + 10 * this.rem;
+    // this.result = sum+(last1+last2>=10);
+    this.generateResultArray(this.result);
+
+  }
 }

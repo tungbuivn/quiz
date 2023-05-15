@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { AddLessionComponent } from '../add-lession/add-lession.component';
 import { SqlDataService } from '../sql-data.service';
 import { EOperate, ElType } from '../OperType';
@@ -8,10 +8,16 @@ import { EOperate, ElType } from '../OperType';
   templateUrl: './cong-doc.component.html',
   styleUrls: ['../add-lession/add-lession.component.scss', './cong-doc.component.scss']
 })
-export class CongDocComponent extends AddLessionComponent {
+export class CongDocComponent extends AddLessionComponent implements OnInit {
+
   // ans1: Promise<any>[] = [];
+  @Input() num1: string = "";
+  @Input() num2: string = "";
 
-
+  ngOnInit(): void {
+    this.num1 = "";
+    this.num2 = "";
+  }
   override init() {
     this.operate = "+";
     this.opertateEnum = EOperate.CongDoc;
@@ -22,6 +28,8 @@ export class CongDocComponent extends AddLessionComponent {
   override refresh() {
 
     this.posCount = 0;
+    this.num1 = "";
+    this.num2 = "";
     this.prevAns = false;
     var dv = this.shuffle([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])[0];
     var chuc = this.shuffle([1, 2, 3, 4, 5, 6, 7, 8])[0];
@@ -40,6 +48,33 @@ export class CongDocComponent extends AddLessionComponent {
     this.result = sum;
     this.firstTime = true;
     this.generateResultArray(sum);
+
+  }
+  updateInput(type: number) {
+    var n1 = parseInt(this.num1);
+    var n2 = parseInt(this.num2);
+    if (isNaN(n1) || isNaN(n2)) {
+      return;
+    }
+    this.posCount = 0;
+    this.prevAns = false;
+    this.rem = 0;
+    var sum = n1 + n2;
+
+    this.firstTime = true;
+    this.firstNumberArr = (n1 + "").split("").map(o => parseInt(o));
+    this.secondNumberArr = (n2 + "").split("").map(o => parseInt(o));
+    while (this.secondNumberArr.length < 2) {
+      (this.secondNumberArr as any).unshift("")
+    }
+    var last1 = this.firstNumberArr[this.firstNumberArr.length - 1];
+    var last2 = this.secondNumberArr[this.secondNumberArr.length - 1];
+    this.resultArr = ["?", "?"];
+    var rs = (sum + "").split("");
+    this.rem = last1 + last2 >= 10 ? 1 : 0;
+    this.result = last1 + last2 - 10 * this.rem;
+    // this.result = sum+(last1+last2>=10);
+    this.generateResultArray(this.result);
 
   }
   doAnswer(item: ElType) {

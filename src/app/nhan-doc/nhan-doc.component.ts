@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { AddLessionComponent } from '../add-lession/add-lession.component';
 import { ElType } from '../OperType';
 type EResult = { val: number, disp: string; items: ElType[] }
@@ -15,6 +15,9 @@ export class NhanDocComponent extends AddLessionComponent implements OnInit {
   finalRow: EResult[] = [];
   currentItem: EResult = { val: 99999, disp: "", items: [] };
   invalidCount: number = 0;
+  skipGenerate: boolean = false;
+  @Input() num1: string = "";
+  @Input() num2: string = "";
   override init(): void {
     // so luong chu so hang thu nhat
     this.lrange = "2";
@@ -24,34 +27,63 @@ export class NhanDocComponent extends AddLessionComponent implements OnInit {
   }
   ngOnInit(): void {
 
+    this.skipGenerate = false;
     this.refresh();
 
+  }
+  updateInput(type: number) {
+    var n1 = parseInt(this.num1);
+    var n2 = parseInt(this.num2);
+    if (isNaN(n1) || isNaN(n2)) {
+      return;
+    }
+    this.skipGenerate = true;
+    this.firstRow = (n1 + "").split("").map(o => parseInt(o));
+    this.secondRow = (n2 + "").split("").map(o => parseInt(o));
+    // debugger;
+    this.refresh();
   }
   override refresh(): void {
     // generate first row
     var flen = parseInt(this.lrange);
     var slen = parseInt(this.urange);
-    this.firstRow = [];
-    this.secondRow = [];
+
     this.resultRows = [];
     this.finalRow = [];
     this.answers = [];
     this.invalidCount = 0;
     this.firstTime = false;
-    for (var i = 0; i < flen; i++) {
-      if (i == 0) {
-        this.firstRow.push(this.shuffle(this.randomNumberArr)[0])
-      } else {
-        this.firstRow.push(this.shuffle(this.randomNumberArr.filter(o => o > 0))[0])
+    if (!this.skipGenerate) {
+      this.firstRow = [];
+      this.secondRow = [];
+      this.num1 = "";
+      this.num2 = "";
+      for (var i = 0; i < flen; i++) {
+        if (i == 0) {
+          this.firstRow.push(this.shuffle(this.randomNumberArr)[0])
+        } else {
+          this.firstRow.push(this.shuffle(this.randomNumberArr.filter(o => o > 0))[0])
+        }
+
       }
-
+      for (var i = 0; i < slen; i++) {
+        this.secondRow.push(this.shuffle(this.randomNumberArr.filter(o => o > 0))[0])
+        // this.resultRows.push([]);
+      }
+      this.firstRow.reverse();
+      this.secondRow.reverse();
     }
-    for (var i = 0; i < slen; i++) {
-      this.secondRow.push(this.shuffle(this.randomNumberArr.filter(o => o > 0))[0])
-      // this.resultRows.push([]);
-    }
-    this.firstRow.reverse();
 
+    this.skipGenerate = false;
+
+    this.processResult();
+
+    // so luong rows ket qua truoc khi cong chinh la do dai secondrow
+
+
+  }
+  processResult() {
+    this.secondRow.reverse();
     var frv = parseInt(this.firstRow.join(""));
     var app: any[] = [];
     // 55
@@ -81,9 +113,6 @@ export class NhanDocComponent extends AddLessionComponent implements OnInit {
 
       });
     }
-
-    // so luong rows ket qua truoc khi cong chinh la do dai secondrow
-
 
   }
   showChoose(item: EResult) {
