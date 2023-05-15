@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AddLessionComponent } from '../add-lession/add-lession.component';
-import { ElType } from '../OperType';
+import { EOperate, ElType } from '../OperType';
 type EResult = { val: number, disp: string; items: ElType[] }
 
 @Component({
@@ -16,6 +16,7 @@ export class NhanDocComponent extends AddLessionComponent implements OnInit {
   currentItem: EResult = { val: 99999, disp: "", items: [] };
   invalidCount: number = 0;
   skipGenerate: boolean = false;
+  completed: boolean = false;
   @Input() num1: string = "";
   @Input() num2: string = "";
   override init(): void {
@@ -27,6 +28,7 @@ export class NhanDocComponent extends AddLessionComponent implements OnInit {
   }
   ngOnInit(): void {
 
+    this.opertateEnum = EOperate.NhanDoc;
     this.skipGenerate = false;
     this.refresh();
 
@@ -53,6 +55,7 @@ export class NhanDocComponent extends AddLessionComponent implements OnInit {
     this.answers = [];
     this.invalidCount = 0;
     this.firstTime = false;
+    this.completed = false;
     if (!this.skipGenerate) {
       this.firstRow = [];
       this.secondRow = [];
@@ -135,7 +138,27 @@ export class NhanDocComponent extends AddLessionComponent implements OnInit {
       if (this.firstTime) {
         this.invalidCount = this.invalidCount + 1;
         this.firstTime = false;
+        if (!this.completed) {
+          this.completed = true;
+          this.sqlData.update(this.opertateEnum, false);
+        }
+
       }
     }
+    var done = false;
+    if (this.resultRows.length > 1) {
+      done = this.finalRow.filter(o => o.disp == "?").length == 0;
+    } else {
+      done = this.resultRows.reduce((p, a) => [...p, ...a], []).filter(o => o.disp == "?").length == 0;
+    }
+
+    console.log("done", done, this.finalRow, "com:", this.completed);
+    if (done) {
+      if (!this.completed) {
+        this.completed = true;
+        this.sqlData.update(this.opertateEnum, this.invalidCount == 0);
+      }
+    }
+
   }
 }
