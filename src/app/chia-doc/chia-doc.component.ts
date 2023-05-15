@@ -69,6 +69,7 @@ export class ChiaDocComponent extends AddLessionComponent implements OnInit {
   }
   calculateResult(fnum: number, soChia: number) {
 
+    this.invalidCount = 0;
     this.answers = [];
     this.currentItem = {};
     this.completed = false;
@@ -176,11 +177,9 @@ export class ChiaDocComponent extends AddLessionComponent implements OnInit {
       }
     }
     var done = false;
-    // if (this.resultRows.length > 1) {
-    //   done = this.finalRow.filter(o => o.disp == "?").length == 0;
-    // } else {
-    //   done = this.resultRows.reduce((p, a) => [...p, ...a], []).filter(o => o.disp == "?").length == 0;
-    // }
+
+    done = this.finalRows.filter(o => o.disp == "?").length == 0;
+
 
     // console.log("done", done, this.finalRow, "com:", this.completed);
     if (done) {

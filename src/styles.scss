@@ -42,6 +42,10 @@
   min-width: 36px !important;
 }
 
+.mt10 {
+  margin-top: 10px;
+}
+
 .w36 {
   min-width: 36px;
   max-width: 36px;
@@ -54,7 +58,7 @@
 .full {
   display: flex;
   flex: 1;
-  width: calc(100vw - 50px);
+  width: 100%;
 
   .mdc-button__ripple {
     width: 100%;
