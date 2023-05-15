@@ -77,6 +77,7 @@ export class ChiaDocComponent extends AddLessionComponent implements OnInit {
     // fnum = 1236;
     this.divArr = (fnum + "").split("").map(o => parseInt(o));
     var rows: any = [];
+    var doneFirst = false;
     // process div result
     this.divArr.reduce((prev, cu, i) => {
       if (i == 0) {
@@ -87,19 +88,26 @@ export class ChiaDocComponent extends AddLessionComponent implements OnInit {
       if (rows.length) {
         rows[rows.length - 1].subRs.push(cu);
       }
-      if (prev >= this.divBy) {
-        var n = prev % this.divBy;
-        var res = (prev - n) / this.divBy;
-        var mres = (res * this.divBy + "").padStart(i + 1, ' ').split("");
-        rows.push({
-          multipleRs: mres,
-          subRs: (n + "").padStart(i + 1, " ").split(""),
-          rem: n,
-          i: i,
-          rs: res
-        });// multiple result
-        prev = n;
+      if (!doneFirst) {
+        if (prev >= this.divBy) {
+          doneFirst = true;
+        } else {
+          return prev;
+        }
       }
+      // if (prev >= this.divBy) {
+      var n = prev % this.divBy;
+      var res = (prev - n) / this.divBy;
+      var mres = (res * this.divBy + "").padStart(i + 1, ' ').split("");
+      rows.push({
+        multipleRs: mres,
+        subRs: (n + "").padStart(i + 1, " ").split(""),
+        rem: n,
+        i: i,
+        rs: res
+      });// multiple result
+      prev = n;
+      // }
       return prev;
     }, 0);
     this.resultRows = rows;
