@@ -23,12 +23,12 @@ export class SoundService {
     resultCount.onUpdate.subscribe((status) => {
       this.valid = this.valid + (status ? 1 : 0);
       this.invalid = this.invalid + (!status ? 1 : 0);
-      this.play(status ? 1 : 0);
+      // this.play(status ? 1 : 0);
 
     })
 
   }
-  play(id: number) {
-    this.data[id].play()
+  play(id: number | boolean) {
+    this.data[id ? 1 : 0].play()
   }
 }

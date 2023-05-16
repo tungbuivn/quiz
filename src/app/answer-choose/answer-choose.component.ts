@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { EOperate, EResultChoose, ElType } from '../OperType';
 import { SqlDataService } from '../sql-data.service';
+import { SoundService } from '../sound.service';
 
 @Component({
   selector: 'app-answer-choose',
@@ -13,7 +14,7 @@ export class AnswerChooseComponent {
   // @Input() isChain: boolean = false;
   answers: ElType[] = [];
   currentItem: EResultChoose | undefined;
-  constructor(private sqlData: SqlDataService) {
+  constructor(private sqlData: SqlDataService, private sound: SoundService) {
 
   }
   setData(d: EResultChoose[], op: EOperate, isChain: boolean = false) {
@@ -23,11 +24,18 @@ export class AnswerChooseComponent {
     if (isChain) {
       this.makeChainResponse();
     }
+    this.data.forEach(e => {
+      e.response.then(() => {
+        this.sound.play(true);
+      }, () => {
+        this.sound.play(false);
+      })
+    })
     Promise.allSettled(this.data.map(o => o.response)).then(rs => {
       if (rs.reduce((p, c) => p && c.status == "fulfilled", true)) {
         this.sqlData.update(op, true)
       } else {
-        this.sqlData.update(op, false)
+        // this.sqlData.update(op, false)
       }
     })
   }
