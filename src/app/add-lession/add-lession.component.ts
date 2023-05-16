@@ -4,6 +4,7 @@ import { SqlDataService } from '../sql-data.service';
 import { EOperate, EResultChoose, ElType } from '../OperType';
 import { ResultCountService } from '../result-count.service';
 import { AnswerChooseComponent } from '../answer-choose/answer-choose.component';
+import { SoundService } from '../sound.service';
 
 
 
@@ -42,7 +43,7 @@ export class AddLessionComponent implements OnInit, AfterViewInit {
   viewDoneResolve!: () => void;
   // countCorrect: number = 0;
   // countWrong: number = 0;
-  constructor(protected sqlData: SqlDataService, private resultCount: ResultCountService) {
+  constructor(protected sqlData: SqlDataService, private sound: SoundService) {
     // this.init();
     this.viewDone = new Promise((resolve, reject) => {
       this.viewDoneResolve = () => {
@@ -106,10 +107,11 @@ export class AddLessionComponent implements OnInit, AfterViewInit {
           r.check = (test: any) => {
             test.class = test.color;
             if (n == test.value) {
-
+              this.sound.play(true);
               resolve(true);
               resolve2(true);
             } else {
+              this.sound.play(false);
               reject2(false);
             }
           }
@@ -118,6 +120,7 @@ export class AddLessionComponent implements OnInit, AfterViewInit {
       r.response.catch(() => false);
       r.promise.then(() => {
         // debugger;
+
         r.disp = `${n}`;
       }).catch(() => false)
     }

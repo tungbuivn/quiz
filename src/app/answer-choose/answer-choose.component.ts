@@ -14,7 +14,7 @@ export class AnswerChooseComponent {
   // @Input() isChain: boolean = false;
   answers: ElType[] = [];
   currentItem: EResultChoose | undefined;
-  constructor(private sqlData: SqlDataService, private sound: SoundService) {
+  constructor(private sqlData: SqlDataService) {
 
   }
   setData(d: EResultChoose[], op: EOperate, isChain: boolean = false) {
@@ -24,13 +24,13 @@ export class AnswerChooseComponent {
     if (isChain) {
       this.makeChainResponse();
     }
-    this.data.forEach(e => {
-      e.response.then(() => {
-        this.sound.play(true);
-      }, () => {
-        this.sound.play(false);
-      })
-    })
+    // this.data.forEach(e => {
+    //   e.response.then(() => {
+    //     this.sound.play(true);
+    //   }, () => {
+    //     this.sound.play(false);
+    //   })
+    // })
     Promise.allSettled(this.data.map(o => o.response)).then(rs => {
       if (rs.reduce((p, c) => p && c.status == "fulfilled", true)) {
         this.sqlData.update(op, true)
