@@ -1,9 +1,9 @@
 <div class="row">
   <mat-form-field class="inp1">
-    <input matInput type="text" [(ngModel)]="lrange">
+    <input matInput type="text" [(ngModel)]="lrange" (ngModelChange)="refresh()">
   </mat-form-field>
   <mat-form-field class="ml10 inp1 inp2">
-    <input matInput type="text" [(ngModel)]="urange">
+    <input matInput type="text" [(ngModel)]="urange" (ngModelChange)="refresh()">
   </mat-form-field>
   <!-- <input [(ngModel)]="operate"> -->
 </div>

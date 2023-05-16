@@ -101,8 +101,6 @@ export class AddLessionComponent implements OnInit, AfterViewInit {
         disp: "?"
       });
       r.response = new Promise((resolve2, reject2) => {
-
-
         r.promise = new Promise((resolve, reject) => {
           r.check = (test: any) => {
             test.class = test.color;
@@ -119,8 +117,6 @@ export class AddLessionComponent implements OnInit, AfterViewInit {
       })
       r.response.catch(() => false);
       r.promise.then(() => {
-        // debugger;
-
         r.disp = `${n}`;
       }).catch(() => false)
     }
@@ -205,51 +201,9 @@ export class AddLessionComponent implements OnInit, AfterViewInit {
     var rs = Function(`return ${this.firstNumber}${this.operate}${this.secondNumber}`)() + "";
     this.finalResult = [rs].map(o => this.makeRecord(o));
     this.ans.setData(this.finalResult, this.opertateEnum, true);
-    // this.result = ;
-    // this.generateResultArray(this.result);
-    // var merge = [this.result + 1, this.result - 1, this.result + 2, this.result - 2, this.result + 3, this.result - 3]
-    //   // remove all negative value
-    //   .filter(o => o >= 0)
-    //   .reduce((p: number[], q: any) => {
-    //     if (p.length < 3) {
 
-    //       p.push(q);
-    //     }
-    //     return p;
-    //   }, []);
-    // this.answers = this.shuffle(
-    //   [this.result, ...merge]
-    // )
-
-
-    //   // only take first 4 value
-    //   .map((o, i) => {
-
-    //     var rs = {
-    //       code: String.fromCharCode(65 + i),
-    //       color: o == this.result ? "green" : 'warn',
-    //       value: o,
-    //       class: ""
-    //     }
-
-    //     return rs;
-    //   }, []);
 
   }
-  showResult(item: ElType) {
 
-    // item.class = item.color;
-    // this.correct = item.value == this.result;
-    // // this.resultCount.onUpdate.next(this.correct)
-    // if (this.showResultEl) return;
-    // // if (this.correct) {
-    // //   this.countCorrect = this.countCorrect + 1;
-    // // } else {
-    // //   this.countWrong = this.countWrong + 1;
-    // // }
-    // this.sqlData.update(this.opertateEnum, this.correct)
-
-    // this.showResultEl = true;
-  }
 
 }

@@ -14,9 +14,7 @@ export class ChiaDocComponent extends AddLessionComponent {
   finalRows: any[] = [];
   @Input() num1: string = "";
   @Input() num2: string = "";
-  currentItem: any;
-  invalidCount: any;
-  completed: any;
+
   override init(): void {
     this.lrange = "2";
     this.urange = "1";
@@ -28,31 +26,20 @@ export class ChiaDocComponent extends AddLessionComponent {
     var ur = parseInt(this.urange);
     var lr = parseInt(this.lrange);
     // generate first number len
-    for (var i = 0; i < ur; i++) {
-      if (i == 0) {
-        this.divBy = this.shuffle([1, 2, 3, 4, 5, 6, 7, 8, 9])[0];
-      } else {
-        this.divBy = this.divBy * 10 + this.shuffle([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])[0];
-      }
-    }
-    // this.divBy = 6;
-    // generate divider with length min lr
-    var rs = [];
-    var n = this.divBy;
+    var umax = parseInt("".padStart(ur, "9"));
+    var umin = parseInt("1".padEnd(ur, "0"));
+    var lmin = parseInt("1".padEnd(lr, "0"));
     var lim = parseInt(''.padStart(lr, "9"));
+
+
+    this.divBy = this.rand(umin + 1, umax);
+    // generate divider with length min lr
+    var minScale = Math.ceil(lmin / this.divBy);
+
     // max scale
     var maxScale = parseInt((lim / this.divBy) + "");
-    var scale = parseInt(Math.random() * 1234 + "") % (maxScale);
+    var scale = this.rand(minScale, maxScale);// parseInt(Math.random() * 12345678 + "") % (maxScale);
 
-    // while (n < lim) {
-    //   n = n + this.divBy;
-    //   if ((n + "").length <= lr) {
-    //     rs.push(n);
-    //     if (rs.length > 200) {
-    //       break;
-    //     }
-    //   }
-    // }
     var fnum = scale * this.divBy;
 
     this.calculateResult(fnum, this.divBy);
@@ -71,10 +58,9 @@ export class ChiaDocComponent extends AddLessionComponent {
   }
   calculateResult(fnum: number, soChia: number) {
 
-    this.invalidCount = 0;
+
     this.answers = [];
-    this.currentItem = {};
-    this.completed = false;
+
     this.divBy = soChia;
     // fnum = 1236;
     this.divArr = (fnum + "").split("").map(o => parseInt(o));
@@ -97,7 +83,7 @@ export class ChiaDocComponent extends AddLessionComponent {
           return prev;
         }
       }
-      // if (prev >= this.divBy) {
+
       var n = prev % this.divBy;
       var res = (prev - n) / this.divBy;
       var mres = (res * this.divBy + "").padStart(i + 1, ' ').split("");
@@ -109,7 +95,7 @@ export class ChiaDocComponent extends AddLessionComponent {
         rs: res
       });// multiple result
       prev = n;
-      // }
+
       return prev;
     }, 0);
     this.resultRows = rows;
@@ -120,91 +106,24 @@ export class ChiaDocComponent extends AddLessionComponent {
     this.resultRows = rows.map((o: any) => {
       o.multipleRs = o.multipleRs.map((p: any) => {
         return this.makeRecord(p)
-        // var n = parseInt(p);
-        // if (isNaN(n)) {
-        //   return {
-        //     val: -1,
-        //     disp: " "
-        //   }
-        // }
-        // return {
-        //   val: n,
-        //   items: this.generateResultArray(n, false),
-        //   disp: "?"
-        // }
+
       });
       o.subRs = o.subRs.map((p: any) => {
         return this.makeRecord(p);
-        // var n = parseInt(p);
-        // if (isNaN(n)) {
-        //   return {
-        //     val: -1,
-        //     disp: " "
-        //   }
-        // }
-        // return {
-        //   val: n,
-        //   items: this.generateResultArray(n, false),
-        //   disp: "?"
-        // }
+
       })
       return o;
     });
     // process generate correct answers
     this.finalRows = fnRows.map(o => {
       return this.makeRecord(o);
-      // var ival = parseInt(o);
-      // return {
-      //   val: ival,
-      //   items: this.generateResultArray(ival, false),
-      //   disp: "?"
-      // }
     });
     var data = [...this.resultRows.reduce((p: any, c: any) => [...p, ...c.multipleRs, ...c.subRs], []), this.finalRows];
     this.ans.setData(data, this.opertateEnum, false);
 
-
-    // console.log(rows);
   }
   showChoose(item: EResultChoose) {
     this.ans.showChoose(item)
-    // console.log(item);
-    // if (item.disp == "?") {
-    //   this.answers = item.items;
-    //   this.currentItem = item;
-    //   this.firstTime = true;
-    // } else {
-    //   this.answers = [];
-    // }
-
   }
-  doAnswer(item: ElType) {
 
-    // item.class = item.color;
-    // if (item.value == this.currentItem.val) {
-    //   this.currentItem.disp = item.value;
-    // } else {
-    //   if (this.firstTime) {
-    //     this.invalidCount = this.invalidCount + 1;
-    //     this.firstTime = false;
-    //     if (!this.completed) {
-    //       this.completed = true;
-    //       this.sqlData.update(this.opertateEnum, false);
-    //     }
-    //   }
-    // }
-    // var done = false;
-
-    // done = this.finalRows.filter(o => o.disp == "?").length == 0;
-
-
-    // // console.log("done", done, this.finalRow, "com:", this.completed);
-    // if (done) {
-    //   if (!this.completed) {
-    //     this.completed = true;
-    //     this.sqlData.update(this.opertateEnum, this.invalidCount == 0);
-    //   }
-    // }
-
-  }
 }
