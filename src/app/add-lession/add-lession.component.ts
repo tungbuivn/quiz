@@ -1,8 +1,9 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component, Inject, Input, OnInit, ViewChild } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 import { SqlDataService } from '../sql-data.service';
-import { EOperate, ElType } from '../OperType';
+import { EOperate, EResultChoose, ElType } from '../OperType';
 import { ResultCountService } from '../result-count.service';
+import { AnswerChooseComponent } from '../answer-choose/answer-choose.component';
 
 
 
@@ -13,7 +14,7 @@ import { ResultCountService } from '../result-count.service';
   styleUrls: ['./add-lession.component.scss'],
 
 })
-export class AddLessionComponent {
+export class AddLessionComponent implements OnInit, AfterViewInit {
   posCount: number = 0;
   firstNumberArr: number[] = [];
   secondNumberArr: number[] = [];
@@ -35,13 +36,97 @@ export class AddLessionComponent {
   showResultEl: boolean = false;
   @Input() urange: string = "20";
   @Input() lrange: string = "10";
+  @ViewChild(AnswerChooseComponent, { static: false }) ans!: AnswerChooseComponent;
+  finalResult!: EResultChoose[];
+  viewDone!: Promise<boolean>;
+  viewDoneResolve!: () => void;
   // countCorrect: number = 0;
   // countWrong: number = 0;
   constructor(protected sqlData: SqlDataService, private resultCount: ResultCountService) {
-    this.init();
+    // this.init();
+    this.viewDone = new Promise((resolve, reject) => {
+      this.viewDoneResolve = () => {
+        resolve(true);
+
+      };
+    })
+  }
+
+  ngAfterContentInit(): void {
+
+  }
+  ngOnInit(): void {
+    // debugger;
+
+    this.viewDone.then(() => {
+      this.init();
+    })
+    // throw new Error('Method not implemented.');
+
+  }
+  ngAfterViewInit(): void {
+    // debugger;
+    this.viewDoneResolve();
+
   }
   randomNumberArr: number[] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+  rand(from: number, to: number): number {
+    var d = to - from;
+    var len = 0;
+    while (len < to) {
+      len = len * 10 + 9;
+    }
+    var n = ((Math.random() * len) << 0) % d + from;
+    if (isNaN(n)) {
+      // this mean from==to
+      return from;
+    }
+    return n;
+  }
+  makeRecord(num: number | string) {
+    var n = parseInt(`${num}`);
+    var r: EResultChoose = {
+      val: -1,
+      items: [],
+      disp: " ",
+      promise: Promise.resolve(true),
+      response: Promise.resolve(true),
+      check: () => { }
+    };
+    if (!isNaN(n)) {
+      Object.assign(r, {
+        val: n,
+        items: this.generateResultArray(n, false),
+        disp: "?"
+      });
+      r.response = new Promise((resolve2, reject2) => {
 
+
+        r.promise = new Promise((resolve, reject) => {
+          r.check = (test: any) => {
+            test.class = test.color;
+            if (n == test.value) {
+
+              resolve(true);
+              resolve2(true);
+            } else {
+              reject2(false);
+            }
+          }
+        });
+      })
+      r.response.catch(() => false);
+      r.promise.then(() => {
+        // debugger;
+        r.disp = `${n}`;
+      }).catch(() => false)
+    }
+
+
+
+
+    return r;
+  }
   init() {
     this.refresh();
   }
@@ -68,13 +153,13 @@ export class AddLessionComponent {
 
     var i = 0;
     do {
-      this.firstNumber = parseInt(Math.random() * 1234 + "") % (urange - lrange) + lrange;
+      this.firstNumber = this.rand(lrange, urange);
     } while ((this.firstNumber == this.lastfirstNumber) && (i < 10));
     i = 0;
     do {
       i = i + 1;
 
-      this.secondNumber = parseInt(Math.random() * 1234 + "") % (urange - this.firstNumber);
+      this.secondNumber = this.rand(this.firstNumber, urange) - this.firstNumber;
     } while ((this.lastsecondNumber == this.secondNumber) && (i < 10));
   }
   generateResultArray(num: number, saveResult: boolean = true) {
@@ -114,9 +199,11 @@ export class AddLessionComponent {
 
     this.lastfirstNumber = this.firstNumber;
     this.lastsecondNumber = this.secondNumber;
-
-    this.result = Function(`return ${this.firstNumber}${this.operate}${this.secondNumber}`)();
-    this.generateResultArray(this.result);
+    var rs = Function(`return ${this.firstNumber}${this.operate}${this.secondNumber}`)() + "";
+    this.finalResult = [rs].map(o => this.makeRecord(o));
+    this.ans.setData(this.finalResult, this.opertateEnum, true);
+    // this.result = ;
+    // this.generateResultArray(this.result);
     // var merge = [this.result + 1, this.result - 1, this.result + 2, this.result - 2, this.result + 3, this.result - 3]
     //   // remove all negative value
     //   .filter(o => o >= 0)
@@ -148,18 +235,18 @@ export class AddLessionComponent {
   }
   showResult(item: ElType) {
 
-    item.class = item.color;
-    this.correct = item.value == this.result;
-    // this.resultCount.onUpdate.next(this.correct)
-    if (this.showResultEl) return;
-    // if (this.correct) {
-    //   this.countCorrect = this.countCorrect + 1;
-    // } else {
-    //   this.countWrong = this.countWrong + 1;
-    // }
-    this.sqlData.update(this.opertateEnum, this.correct)
+    // item.class = item.color;
+    // this.correct = item.value == this.result;
+    // // this.resultCount.onUpdate.next(this.correct)
+    // if (this.showResultEl) return;
+    // // if (this.correct) {
+    // //   this.countCorrect = this.countCorrect + 1;
+    // // } else {
+    // //   this.countWrong = this.countWrong + 1;
+    // // }
+    // this.sqlData.update(this.opertateEnum, this.correct)
 
-    this.showResultEl = true;
+    // this.showResultEl = true;
   }
 
 }

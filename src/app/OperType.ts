@@ -20,3 +20,11 @@ export interface ESqlSummary {
   mtypename: string;
 }
 export type ElType = { code: string; value: any; color: string; class: string }
+export type EResultChoose = {
+  val: number;
+  items: ElType[];
+  disp: string;
+  promise: Promise<boolean>;
+  response: Promise<boolean>;
+  check: (item: ElType) => void;
+}

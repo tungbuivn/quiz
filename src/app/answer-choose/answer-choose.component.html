@@ -1,0 +1,5 @@
+<div *ngFor="let item of answers">
+  <button [class]="'mt10 full '+item.class" mat-raised-button (click)="validate(item)">
+    {{item.code}}. {{item.value}}
+  </button>
+</div>

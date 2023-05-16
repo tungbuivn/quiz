@@ -49,9 +49,7 @@
 
   <div class="mt50">
 
-    <button [class]="'p10 full '+item.class" *ngFor="let item of answers" mat-raised-button (click)="doAnswer(item)">
-      {{item.code}}. {{item.value}}
-    </button>
+    <app-answer-choose></app-answer-choose>
 
   </div>
   <div class="mt50">

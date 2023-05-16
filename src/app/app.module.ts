@@ -25,6 +25,7 @@ import { PageHeaderComponent } from './page-header/page-header.component';
 import { ChiaComponent } from './chia/chia.component';
 import { NhanDocComponent } from './nhan-doc/nhan-doc.component';
 import { ChiaDocComponent } from './chia-doc/chia-doc.component';
+import { AnswerChooseComponent } from './answer-choose/answer-choose.component';
 
 
 
@@ -43,7 +44,8 @@ import { ChiaDocComponent } from './chia-doc/chia-doc.component';
     PageHeaderComponent,
     ChiaComponent,
     NhanDocComponent,
-    ChiaDocComponent
+    ChiaDocComponent,
+    AnswerChooseComponent
 
   ],
   imports: [

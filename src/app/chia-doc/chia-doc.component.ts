@@ -1,13 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AddLessionComponent } from '../add-lession/add-lession.component';
-import { EOperate, ElType } from '../OperType';
+import { EOperate, EResultChoose, ElType } from '../OperType';
 
 @Component({
   selector: 'app-chia-doc',
   templateUrl: './chia-doc.component.html',
   styleUrls: ['./chia-doc.component.scss']
 })
-export class ChiaDocComponent extends AddLessionComponent implements OnInit {
+export class ChiaDocComponent extends AddLessionComponent {
   divArr: number[] = [];
   divBy: number = 0;
   resultRows: any = [];
@@ -17,7 +17,7 @@ export class ChiaDocComponent extends AddLessionComponent implements OnInit {
   currentItem: any;
   invalidCount: any;
   completed: any;
-  ngOnInit(): void {
+  override init(): void {
     this.lrange = "2";
     this.urange = "1";
     this.operate = "/";
@@ -119,85 +119,92 @@ export class ChiaDocComponent extends AddLessionComponent implements OnInit {
 
     this.resultRows = rows.map((o: any) => {
       o.multipleRs = o.multipleRs.map((p: any) => {
-        var n = parseInt(p);
-        if (isNaN(n)) {
-          return {
-            val: -1,
-            disp: " "
-          }
-        }
-        return {
-          val: n,
-          items: this.generateResultArray(n, false),
-          disp: "?"
-        }
+        return this.makeRecord(p)
+        // var n = parseInt(p);
+        // if (isNaN(n)) {
+        //   return {
+        //     val: -1,
+        //     disp: " "
+        //   }
+        // }
+        // return {
+        //   val: n,
+        //   items: this.generateResultArray(n, false),
+        //   disp: "?"
+        // }
       });
       o.subRs = o.subRs.map((p: any) => {
-        var n = parseInt(p);
-        if (isNaN(n)) {
-          return {
-            val: -1,
-            disp: " "
-          }
-        }
-        return {
-          val: n,
-          items: this.generateResultArray(n, false),
-          disp: "?"
-        }
+        return this.makeRecord(p);
+        // var n = parseInt(p);
+        // if (isNaN(n)) {
+        //   return {
+        //     val: -1,
+        //     disp: " "
+        //   }
+        // }
+        // return {
+        //   val: n,
+        //   items: this.generateResultArray(n, false),
+        //   disp: "?"
+        // }
       })
       return o;
     });
     // process generate correct answers
     this.finalRows = fnRows.map(o => {
-      var ival = parseInt(o);
-      return {
-        val: ival,
-        items: this.generateResultArray(ival, false),
-        disp: "?"
-      }
+      return this.makeRecord(o);
+      // var ival = parseInt(o);
+      // return {
+      //   val: ival,
+      //   items: this.generateResultArray(ival, false),
+      //   disp: "?"
+      // }
     });
+    var data = [...this.resultRows.reduce((p: any, c: any) => [...p, ...c.multipleRs, ...c.subRs], []), this.finalRows];
+    this.ans.setData(data, this.opertateEnum, false);
 
-    console.log(rows);
+
+    // console.log(rows);
   }
-  showChoose(item: any) {
+  showChoose(item: EResultChoose) {
+    this.ans.showChoose(item)
     // console.log(item);
-    if (item.disp == "?") {
-      this.answers = item.items;
-      this.currentItem = item;
-      this.firstTime = true;
-    } else {
-      this.answers = [];
-    }
+    // if (item.disp == "?") {
+    //   this.answers = item.items;
+    //   this.currentItem = item;
+    //   this.firstTime = true;
+    // } else {
+    //   this.answers = [];
+    // }
 
   }
   doAnswer(item: ElType) {
 
-    item.class = item.color;
-    if (item.value == this.currentItem.val) {
-      this.currentItem.disp = item.value;
-    } else {
-      if (this.firstTime) {
-        this.invalidCount = this.invalidCount + 1;
-        this.firstTime = false;
-        if (!this.completed) {
-          this.completed = true;
-          this.sqlData.update(this.opertateEnum, false);
-        }
-      }
-    }
-    var done = false;
+    // item.class = item.color;
+    // if (item.value == this.currentItem.val) {
+    //   this.currentItem.disp = item.value;
+    // } else {
+    //   if (this.firstTime) {
+    //     this.invalidCount = this.invalidCount + 1;
+    //     this.firstTime = false;
+    //     if (!this.completed) {
+    //       this.completed = true;
+    //       this.sqlData.update(this.opertateEnum, false);
+    //     }
+    //   }
+    // }
+    // var done = false;
 
-    done = this.finalRows.filter(o => o.disp == "?").length == 0;
+    // done = this.finalRows.filter(o => o.disp == "?").length == 0;
 
 
-    // console.log("done", done, this.finalRow, "com:", this.completed);
-    if (done) {
-      if (!this.completed) {
-        this.completed = true;
-        this.sqlData.update(this.opertateEnum, this.invalidCount == 0);
-      }
-    }
+    // // console.log("done", done, this.finalRow, "com:", this.completed);
+    // if (done) {
+    //   if (!this.completed) {
+    //     this.completed = true;
+    //     this.sqlData.update(this.opertateEnum, this.invalidCount == 0);
+    //   }
+    // }
 
   }
 }

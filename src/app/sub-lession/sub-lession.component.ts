@@ -21,14 +21,15 @@ export class SubLessionComponent extends AddLessionComponent {
     var i = 0;
     // do {
     i = i + 1
-    this.firstNumber = parseInt(Math.random() * 1234 + "") % (urange - lrange) + lrange;
+    this.firstNumber = this.rand(lrange, urange);;
 
-    var sub = this.firstNumber - lrange;
-    if (sub == 0) {
-      this.secondNumber = 0;
-    } else {
-      this.secondNumber = parseInt(Math.random() * 1234 + "") % (sub) + lrange;
-    }
+    this.secondNumber = this.rand(lrange, this.firstNumber);
+    // var sub = this.firstNumber - lrange;
+    // if (sub == 0) {
+    //   this.secondNumber = 0;
+    // } else {
+    //   this.secondNumber = parseInt(Math.random() * 1234 + "") % (sub) + lrange;
+    // }
 
     // } while ((this.secondNumber == this.lastsecondNumber) && (i < 10));
     // console.log(this.firstNumber + " " + this.secondNumber)

@@ -7,6 +7,15 @@
       <input matInput type="text" [(ngModel)]="num2" (change)="updateInput(2)">
     </mat-form-field>
   </div>
+  <div class="row">
+    <mat-form-field class="inp1">
+      <input matInput type="text" [(ngModel)]="lrange">
+    </mat-form-field>
+    <mat-form-field class="ml10 inp1 inp2">
+      <input matInput type="text" [(ngModel)]="urange">
+    </mat-form-field>
+    <!-- <input [(ngModel)]="operate"> -->
+  </div>
   <div class="box-con">
     <div class="center-oper">
       <div class="fl-end">
@@ -18,16 +27,17 @@
       </div>
       <div class="sep"></div>
       <div class="fl-end">
-        <button class="smnum" mat-stroked-button *ngFor="let item of resultArr">{{item}}</button>
+        <button class="smnum" mat-stroked-button *ngFor="let item of finalResult">{{item.disp}}</button>
       </div>
 
     </div>
   </div>
-  <div *ngFor="let item of answers">
+  <app-answer-choose></app-answer-choose>
+  <!-- <div *ngFor="let item of answers">
     <button [class]="'mt10 full '+item.class" mat-raised-button (click)="doAnswer(item)">
       {{item.code}}. {{item.value}}
     </button>
-  </div>
+  </div> -->
 
 
   <div>
