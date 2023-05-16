@@ -35,7 +35,7 @@ export class AnswerChooseComponent {
       if (rs.reduce((p, c) => p && c.status == "fulfilled", true)) {
         this.sqlData.update(op, true)
       } else {
-        // this.sqlData.update(op, false)
+        this.sqlData.update(op, false)
       }
     })
   }
