@@ -13,13 +13,24 @@ export class AnswerChooseComponent {
   // if is chain is true then, resolve automatic switch answer by chain
   // @Input() isChain: boolean = false;
   answers: ElType[] = [];
-  currentItem: EResultChoose | undefined;
+  currentItem: EResultChoose = {
+    val: 0,
+    items: [],
+    disp: '?',
+    desc: '',
+    promise: Promise.resolve(true),
+    response: Promise.resolve(true),
+    check: (item: ElType) => true
+  };
+  lastText: string = "";
+
   constructor(private sqlData: SqlDataService) {
 
   }
   setData(d: EResultChoose[], op: EOperate, isChain: boolean = false) {
     // debugger;
     this.data = d;
+    this.lastText = "";
     this.answers = [];
     if (isChain) {
       this.makeChainResponse();
@@ -62,6 +73,10 @@ export class AnswerChooseComponent {
 
   }
   validate(item: ElType) {
-    this.currentItem?.check(item);
+    var n = this.currentItem.desc;
+    if (this.currentItem?.check(item)) {
+      this.lastText = n;
+    };
+
   }
 }

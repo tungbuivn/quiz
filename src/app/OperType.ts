@@ -24,7 +24,8 @@ export type EResultChoose = {
   val: number;
   items: ElType[];
   disp: string;
+  desc: string;
   promise: Promise<boolean>;
   response: Promise<boolean>;
-  check: (item: ElType) => void;
+  check: (item: ElType) => boolean;
 }

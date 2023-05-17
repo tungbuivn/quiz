@@ -53,6 +53,9 @@ export class CongDocComponent extends AddLessionComponent {
     this.posCount = 0;
     this.firstTime = true;
     this.prevAns = false;
+    // firstNum = 97;
+    // secNum = 48;
+
     var total = Function(`return ${firstNum}${this.operate}${secNum}`)() + "";
     this.firstNumberArr = (firstNum + "").split("").map(o => parseInt(o));
     this.secondNumberArr = (secNum + "").split("").map(o => parseInt(o));
@@ -60,10 +63,67 @@ export class CongDocComponent extends AddLessionComponent {
     if (mlen > total.length) {
       total = total.padStart(mlen - total.length + 1, '0')
     }
-    this.finalResult = total.split("").map(o => {
-      var r = this.makeRecord(parseInt(o));
+    this.firstNumberArr.reverse();
+    this.secondNumberArr.reverse();
+    var mlen = Math.max(this.firstNumberArr.length, this.secondNumberArr.length);
+    var guideText: string[] = [];
+
+    Array.from(Array(mlen)).reduce((p, o, i) => {
+      // debugger;
+      var n1 = this.firstNumberArr[i] || 0;
+      var n2 = this.secondNumberArr[i] || 0;
+      var pre = "";
+      var nho = 0;
+      // debugger;
+      var s1 = Function(`return ${n1} ${this.operate} ${n2} ${this.operate} ${p}`)();
+      if (s1 < 0) {
+        s1 = Function(`return ${10 + n1} ${this.operate} ${n2} ${this.operate} ${p}`)();
+        pre = "1";
+        nho = 1;
+      }
+      var s1Text = `${s1}`.split("");
+      var top = this.operate == "+" ? "cộng" : "trừ";
+      var t1 = `${pre}${n1} ${top} ${n2}`; // xx cong/tru yy
+
+      var sx = Function(`return ${pre}${n1} ${this.operate} ${n2}`)();
+      t1 = t1 + ` bằng ${sx}`;
+      if (p > 0) {
+        t1 = t1 + ` nhớ ${p}`;
+      }
+      if (s1Text.length >= 2 && i + 1 == mlen) {
+        t1 = t1 + ` bằng ${s1} viết ${s1}`;
+        // debugger;
+      } else {
+
+
+
+        t1 = t1 + ` bằng ${s1} viết ${s1Text[s1Text.length - 1]}`;
+
+        // if (this.opertateEnum == EOperate.CongDoc) {
+        if ((nho > 0 && this.opertateEnum == EOperate.TruDoc)) {
+          t1 = t1 + ` nhớ ${1}`;
+        }
+
+        if ((s1Text.length > 1)) {
+          t1 = t1 + ` nhớ ${s1Text[0]}`;
+          nho = parseInt(s1Text[0]);
+        }
+        // }
+
+      }
+      guideText.push(t1);
+      return nho;
+    }, 0);
+    console.log(guideText.join("\n"));
+    this.firstNumberArr.reverse();
+    this.secondNumberArr.reverse();
+    guideText.reverse();
+    this.finalResult = total.split("").map((o, i) => {
+      // preparing text guide
+      var r = this.makeRecord(parseInt(o), guideText[i]);
       return r;
     });
+
     this.ans.setData(this.finalResult, this.opertateEnum, true)
 
   }

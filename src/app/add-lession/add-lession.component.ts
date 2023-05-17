@@ -84,15 +84,16 @@ export class AddLessionComponent implements OnInit, AfterViewInit {
     }
     return n;
   }
-  makeRecord(num: number | string) {
+  makeRecord(num: number | string, desc: string = "") {
     var n = parseInt(`${num}`);
     var r: EResultChoose = {
       val: -1,
       items: [],
       disp: " ",
+      desc: desc,
       promise: Promise.resolve(true),
       response: Promise.resolve(true),
-      check: () => { }
+      check: () => true
     };
     if (num == -999) {
       r.disp = " ";
@@ -107,7 +108,8 @@ export class AddLessionComponent implements OnInit, AfterViewInit {
           r.promise = new Promise((resolve, reject) => {
             r.check = (test: any) => {
               test.class = test.color;
-              if (n == test.value) {
+              var val = n == test.value;
+              if (val) {
                 this.sound.play(true);
                 resolve(true);
                 resolve2(true);
@@ -115,6 +117,7 @@ export class AddLessionComponent implements OnInit, AfterViewInit {
                 this.sound.play(false);
                 reject2(false);
               }
+              return val;
             }
           });
         })

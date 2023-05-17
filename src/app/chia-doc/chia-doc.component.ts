@@ -70,15 +70,16 @@ export class ChiaDocComponent extends AddLessionComponent {
 
     // fnum = 10; soChia = 4;
     this.answers = [];
+    var flen = (fnum + "").length;
 
     this.divBy = soChia;
-    var precision = parseInt("1".padEnd(4, '0'));
+    var precision = parseInt("1".padEnd(5, '0'));
     var rnum = (((fnum / this.divBy) * precision) << 0) / precision;
 
     var spl = (rnum + "").split(".");
     var zeroPos = spl.length;
     if (spl.length > 1) {
-      zeroPos = (rnum + "").length - spl[1].length - 1;
+      zeroPos = (rnum + "").length - spl[1].length;
       fnum = fnum * Math.pow(10, spl[1].length);
     }
     var fnRows = (rnum + "").split("");
@@ -125,7 +126,8 @@ export class ChiaDocComponent extends AddLessionComponent {
     }, 0);
     this.resultRows = rows;
     this.divArr = divData.map((o, i) => {
-      if (i > zeroPos) {
+
+      if (i >= flen) {
         return removeNum;
       }
       return o;
