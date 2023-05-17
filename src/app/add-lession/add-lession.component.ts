@@ -94,32 +94,39 @@ export class AddLessionComponent implements OnInit, AfterViewInit {
       response: Promise.resolve(true),
       check: () => { }
     };
-    if (!isNaN(n)) {
-      Object.assign(r, {
-        val: n,
-        items: this.generateResultArray(n, false),
-        disp: "?"
-      });
-      r.response = new Promise((resolve2, reject2) => {
-        r.promise = new Promise((resolve, reject) => {
-          r.check = (test: any) => {
-            test.class = test.color;
-            if (n == test.value) {
-              this.sound.play(true);
-              resolve(true);
-              resolve2(true);
-            } else {
-              this.sound.play(false);
-              reject2(false);
-            }
-          }
+    if (num == -999) {
+      r.disp = " ";
+    } else
+      if (!isNaN(n)) {
+        Object.assign(r, {
+          val: n,
+          items: this.generateResultArray(n, false),
+          disp: "?"
         });
-      })
-      r.response.catch(() => false);
-      r.promise.then(() => {
-        r.disp = `${n}`;
-      }).catch(() => false)
-    }
+        r.response = new Promise((resolve2, reject2) => {
+          r.promise = new Promise((resolve, reject) => {
+            r.check = (test: any) => {
+              test.class = test.color;
+              if (n == test.value) {
+                this.sound.play(true);
+                resolve(true);
+                resolve2(true);
+              } else {
+                this.sound.play(false);
+                reject2(false);
+              }
+            }
+          });
+        })
+        r.response.catch(() => false);
+        r.promise.then(() => {
+          r.disp = `${n}`;
+        }).catch(() => false)
+      } else {
+        if (num == ".") {
+          r.disp = ".";
+        }
+      }
 
 
 

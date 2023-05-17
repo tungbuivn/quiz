@@ -5,7 +5,7 @@
   <mat-form-field class="ml10 inp1 inp2">
     <input matInput type="text" [(ngModel)]="urange" (ngModelChange)="refresh()">
   </mat-form-field>
-  <!-- <input [(ngModel)]="operate"> -->
+
 </div>
 
 <div class="mt20">
@@ -15,23 +15,6 @@
   <span>&nbsp;=&nbsp;?</span>
 </div>
 <app-answer-choose></app-answer-choose>
-<!--
-<div *ngFor="let item of answers">
-  <button [class]="'mt10 full '+item.class" mat-raised-button (click)="showResult(item)">
-    {{item.code}}. {{item.value}}
-  </button>
-</div> -->
-<!-- <mat-chip-listbox class="mat-mdc-chip-set-stacked mt50">
-  <mat-chip-option *ngFor="let item of answers" (click)="showResult(item.value)" [color]=" item.color">
-    <div [class]="item.color">
-      {{item.code}}. {{item.value}}
-    </div>
-  </mat-chip-option>
-</mat-chip-listbox> -->
-<!-- <div [hidden]="!showResultEl">
-  <button [hidden]="!correct" mat-flat-button color="green">Correct</button>
-  <button [hidden]="correct" mat-raised-button color="warn">Wrong</button>
-</div> -->
 
 
 <div>

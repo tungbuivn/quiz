@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { AddLessionComponent } from '../add-lession/add-lession.component';
 import { EOperate, EResultChoose, ElType } from '../OperType';
 
+const removeNum: number = -999;
 @Component({
   selector: 'app-chia-doc',
   templateUrl: './chia-doc.component.html',
@@ -14,6 +15,7 @@ export class ChiaDocComponent extends AddLessionComponent {
   finalRows: any[] = [];
   @Input() num1: string = "";
   @Input() num2: string = "";
+
 
   override init(): void {
     this.lrange = "2";
@@ -56,18 +58,41 @@ export class ChiaDocComponent extends AddLessionComponent {
     }
     this.calculateResult(n1, n2);
   }
+  disp(i: number) {
+    if (i == removeNum) {
+      return " ";
+    }
+    return i;
+  }
   calculateResult(fnum: number, soChia: number) {
 
 
+
+    // fnum = 10; soChia = 4;
     this.answers = [];
 
     this.divBy = soChia;
+    var precision = parseInt("1".padEnd(4, '0'));
+    var rnum = (((fnum / this.divBy) * precision) << 0) / precision;
+
+    var spl = (rnum + "").split(".");
+    var zeroPos = spl.length;
+    if (spl.length > 1) {
+      zeroPos = (rnum + "").length - spl[1].length - 1;
+      fnum = fnum * Math.pow(10, spl[1].length);
+    }
+    var fnRows = (rnum + "").split("");
+    // debugger;
+    var divData = (fnum + "").split("").map(o => parseInt(o));
+
+    // check to see result is float
     // fnum = 1236;
-    this.divArr = (fnum + "").split("").map(o => parseInt(o));
+
     var rows: any = [];
     var doneFirst = false;
+
     // process div result
-    this.divArr.reduce((prev, cu, i) => {
+    divData.reduce((prev: number, cu: number, i: number) => {
       if (i == 0) {
         prev = cu;
       } else {
@@ -99,9 +124,16 @@ export class ChiaDocComponent extends AddLessionComponent {
       return prev;
     }, 0);
     this.resultRows = rows;
+    this.divArr = divData.map((o, i) => {
+      if (i > zeroPos) {
+        return removeNum;
+      }
+      return o;
+    })
+
     // khong xu ly cac so sau dau cham thap phan,
     // voi toan lop 5, se bo sung phan lap de tinh cac so sau dau ,
-    var fnRows = (fnum / this.divBy + "").split(".")[0].split("");
+
 
     this.resultRows = rows.map((o: any) => {
       o.multipleRs = o.multipleRs.map((p: any) => {
@@ -115,6 +147,7 @@ export class ChiaDocComponent extends AddLessionComponent {
       return o;
     });
     // process generate correct answers
+    // debugger;
     this.finalRows = fnRows.map(o => {
       return this.makeRecord(o);
     });
