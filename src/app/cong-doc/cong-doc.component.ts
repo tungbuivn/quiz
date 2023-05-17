@@ -60,12 +60,12 @@ export class CongDocComponent extends AddLessionComponent {
     this.firstNumberArr = (firstNum + "").split("").map(o => parseInt(o));
     this.secondNumberArr = (secNum + "").split("").map(o => parseInt(o));
     var mlen = Math.max(this.firstNumberArr.length, this.secondNumberArr.length);
-    if (mlen > total.length) {
-      total = total.padStart(mlen - total.length + 1, '0')
+    while (mlen > total.length) {
+      total = '0' + total
     }
     this.firstNumberArr.reverse();
     this.secondNumberArr.reverse();
-    var mlen = Math.max(this.firstNumberArr.length, this.secondNumberArr.length);
+
     var guideText: string[] = [];
 
     Array.from(Array(mlen)).reduce((p, o, i) => {
@@ -88,16 +88,16 @@ export class CongDocComponent extends AddLessionComponent {
       var sx = Function(`return ${pre}${n1} ${this.operate} ${n2}`)();
       t1 = t1 + ` bằng ${sx}`;
       if (p > 0) {
-        t1 = t1 + ` nhớ ${p}`;
+        t1 = t1 + ` nhớ ${p} bằng ${s1}`;
       }
       if (s1Text.length >= 2 && i + 1 == mlen) {
-        t1 = t1 + ` bằng ${s1} viết ${s1}`;
+        t1 = t1 + ` viết ${s1}`;
         // debugger;
       } else {
 
 
 
-        t1 = t1 + ` bằng ${s1} viết ${s1Text[s1Text.length - 1]}`;
+        t1 = t1 + ` viết ${s1Text[s1Text.length - 1]}`;
 
         // if (this.opertateEnum == EOperate.CongDoc) {
         if ((nho > 0 && this.opertateEnum == EOperate.TruDoc)) {
@@ -118,6 +118,7 @@ export class CongDocComponent extends AddLessionComponent {
     this.firstNumberArr.reverse();
     this.secondNumberArr.reverse();
     guideText.reverse();
+
     this.finalResult = total.split("").map((o, i) => {
       // preparing text guide
       var r = this.makeRecord(parseInt(o), guideText[i]);
