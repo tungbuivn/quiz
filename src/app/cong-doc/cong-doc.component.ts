@@ -114,6 +114,9 @@ export class CongDocComponent extends AddLessionComponent {
       guideText.push(t1);
       return nho;
     }, 0);
+    while (guideText.length<total.length) {
+      guideText.push(guideText[guideText.length-1]);
+    }
     console.log(guideText.join("\n"));
     this.firstNumberArr.reverse();
     this.secondNumberArr.reverse();
