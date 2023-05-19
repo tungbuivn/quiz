@@ -15,8 +15,9 @@ export class SoundService {
   valid: number = 0;
   invalid: number = 0;
   soundFiles: FileInfo[] = [
-    { name: 'dung', text: "Đúng rồi" },
+
     { name: 'sai', text: "" },
+    { name: 'dung', text: "Đúng rồi" },
     //===
     { name: '0', text: "không" },
     { name: '1', text: "một" },
@@ -41,6 +42,7 @@ export class SoundService {
   ];
   mapObject: any = {};
   soundLoaded!: Promise<void>;
+  lastPlay: Promise<void> = Promise.resolve();
 
   constructor(private resultCount: ResultCountService, private httpClient: HttpClient) {
     const contentType = "audio/mp3";
@@ -56,7 +58,8 @@ export class SoundService {
         var sx = this.soundFiles[i];
 
         var so = new Howl({
-          src: [`data:${contentType};base64,${o.audioContent}`]
+          src: [`data:${contentType};base64,${o.audioContent}`],
+          rate: 1.0
         });
         this.mapObject[sx.text] = so;
         return so;
@@ -81,40 +84,56 @@ export class SoundService {
 
   }
   speakText(text: string) {
-    var ntext = text.split(" ").map((s) => {
-      // is number ?
-      if (!isNaN(parseFloat(s))) {
-        return n2words(s, { lang: 'vi' }).split(" ");
-      } else {
-        // is text
+    this.soundLoaded.then(() => {
+      this.lastPlay = text.split(" ").map((s) => {
+        // is number ?
+        if (!isNaN(parseFloat(s))) {
+          return n2words(s, { lang: 'vi' }).split(" ");
+        } else {
+          // is text
+          return [s];
+        }
         return [s];
-      }
-      return [s];
-    }).reduce((p, c) => {
-      return [...p, ...c]
-    }, [])
-      .map(o => {
-        return this.mapObject[o]
       }).reduce((p, c) => {
-        return p.then(() => {
-          return new Promise((resolve) => {
-            console.log("playing ", c)
-            c.on("end", () => {
-              resolve(true);
-            });
-            c.play();
-          })
+        return [...p, ...c]
+      }, [])
+        .map(o => {
+          return this.mapObject[o]
+        }).reduce((p, c) => {
+          return p.then(() => {
+            return new Promise((resolve) => {
+              console.log("playing ", c)
+              c.once("end", () => {
+                resolve(true);
+              });
+              c.play();
+            })
 
-        })
-      }, Promise.resolve())
-      // do play sound
-      ;
+          })
+        }, this.lastPlay)
+        // do play sound
+        ;
+    });
+
     // debugger;
   }
   play(id: number | boolean) {
     this.soundLoaded.then(() => {
-      this.data[id ? 1 : 0].play();
-    });
+      this.lastPlay = new Promise((resolve) => {
+        [this.data[id ? 1 : 0]].reduce((p, c) => {
+          return p.then(() => {
 
+            c.once("end", () => {
+              resolve();
+            });
+            c.play();
+          })
+        }
+          , this.lastPlay)
+      }
+        // this.data[id ? 1 : 0].play();
+      );
+
+    })
   }
 }
