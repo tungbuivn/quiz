@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { Howl } from "howler";
 import { ResultCountService } from './result-count.service';
 // import { sounds } from './sounds'
@@ -10,12 +10,11 @@ type FileInfo = { name: string; text: string };
 @Injectable({
   providedIn: 'root'
 })
-export class SoundService {
+export class SoundService implements OnDestroy {
   data!: any[];
   valid: number = 0;
   invalid: number = 0;
   soundFiles: FileInfo[] = [
-
     { name: 'sai', text: "" },
     { name: 'dung', text: "Đúng rồi" },
     //===
@@ -43,6 +42,7 @@ export class SoundService {
   mapObject: any = {};
   soundLoaded!: Promise<void>;
   lastPlay: Promise<void> = Promise.resolve();
+  cancelRequested: boolean = false;
 
   constructor(private resultCount: ResultCountService, private httpClient: HttpClient) {
     const contentType = "audio/mp3";
@@ -83,6 +83,12 @@ export class SoundService {
     })
 
   }
+  ngOnDestroy(): void {
+    console.log("destroy call")
+  }
+  cancelSound() {
+
+  }
   speakText(text: string) {
     this.soundLoaded.then(() => {
       this.lastPlay = text.split(" ").map((s) => {
@@ -101,8 +107,12 @@ export class SoundService {
           return this.mapObject[o]
         }).reduce((p, c) => {
           return p.then(() => {
-            return new Promise((resolve) => {
-              console.log("playing ", c)
+            return new Promise((resolve, reject) => {
+              if (this.cancelRequested) {
+                reject();
+                this.cancelRequested = false;
+                this.lastPlay = Promise.resolve();
+              }
               c.once("end", () => {
                 resolve(true);
               });

@@ -72,11 +72,18 @@ export class AnswerChooseComponent {
     }
 
   }
+  cancelSound() {
+    this.sound.cancelRequested = true;
+  }
   validate(item: ElType) {
     var n = this.currentItem.desc;
     if (this.currentItem?.check(item)) {
+      // this.cancelSound();
       this.lastText = n;
+      // setTimeout(() => {
       this.sound.speakText(n);
+      // }, 100);
+
     };
 
   }

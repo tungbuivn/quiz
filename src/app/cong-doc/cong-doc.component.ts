@@ -151,6 +151,7 @@ export class CongDocComponent extends AddLessionComponent {
     var found = this.ans.data.filter(o => o.disp == "?").length;
 
     if (found == 0) {
+      this.ans.cancelSound();
       this.refresh();
     }
   }
