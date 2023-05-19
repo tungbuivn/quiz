@@ -114,7 +114,7 @@ export class CongDocComponent extends AddLessionComponent {
       guideText.push(t1);
       return nho;
     }, 0);
-    console.log(guideText.join("\n"));
+    // console.log(guideText.join("\n"));
     this.firstNumberArr.reverse();
     this.secondNumberArr.reverse();
     guideText.reverse();
@@ -142,6 +142,14 @@ export class CongDocComponent extends AddLessionComponent {
     this.ans.showChoose(item);
 
 
+  }
+  // doi khi gap bai kho, tre se bo qua de lam bai tiep, func nay ko cho phep tiep tuc neu chua lam xong
+  next() {
+    var found = this.ans.data.filter(o => o.disp == "?").length;
+
+    if (found == 0) {
+      this.refresh();
+    }
   }
 
 
