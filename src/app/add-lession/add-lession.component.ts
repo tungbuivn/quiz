@@ -48,7 +48,6 @@ export class AddLessionComponent implements OnInit, AfterViewInit {
     this.viewDone = new Promise((resolve, reject) => {
       this.viewDoneResolve = () => {
         resolve(true);
-
       };
     })
   }

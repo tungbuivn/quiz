@@ -24,7 +24,7 @@ export class AnswerChooseComponent {
   };
   lastText: string = "";
 
-  constructor(private sqlData: SqlDataService) {
+  constructor(private sqlData: SqlDataService, private sound: SoundService) {
 
   }
   setData(d: EResultChoose[], op: EOperate, isChain: boolean = false) {
@@ -76,6 +76,7 @@ export class AnswerChooseComponent {
     var n = this.currentItem.desc;
     if (this.currentItem?.check(item)) {
       this.lastText = n;
+      this.sound.speakText(n);
     };
 
   }

@@ -36,7 +36,7 @@ export class SqlDataService {
       this._db.transaction((tx: any) => {
         tx.executeSql(`DELETE  FROM RS WHERE mdate <? `, [fromY], (_transaction: any, result: any) => { })
         tx.executeSql(`SELECT *  FROM RS WHERE mdate>=? and mdate <=? ORDER BY mdate desc`, [fromY, toY], (_transaction: any, result: any) => {
-          var book, i, rs = [], booksNumber = result.rows.length;
+          var book, i, rs: any[] = [], booksNumber = result.rows.length;
           for (i = 0; i < booksNumber; i++) {
             book = result.rows.item(i);
             rs.push(book);

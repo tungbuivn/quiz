@@ -26,6 +26,8 @@ import { ChiaComponent } from './chia/chia.component';
 import { NhanDocComponent } from './nhan-doc/nhan-doc.component';
 import { ChiaDocComponent } from './chia-doc/chia-doc.component';
 import { AnswerChooseComponent } from './answer-choose/answer-choose.component';
+import { HttpClientModule } from '@angular/common/http';
+
 
 
 
@@ -49,6 +51,7 @@ import { AnswerChooseComponent } from './answer-choose/answer-choose.component';
 
   ],
   imports: [
+    HttpClientModule,
     MatCardModule,
     MatInputModule,
     MatTableModule,
