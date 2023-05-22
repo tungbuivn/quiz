@@ -16,15 +16,12 @@ export class SummaryComponent {
     this.init();
   }
   async init() {
-
     this.displayedColumns = ["mdate", "mtypename", "mvalid", "minvalid"];
     this.sqlData.getSummary().then(rs => {
       this.data = rs.map(o => {
         o.mtypename = EOperate[o.mtype]; // "A"
         return o;
       })
-
     });
-    // debugger;
   }
 }

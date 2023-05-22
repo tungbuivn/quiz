@@ -86,19 +86,10 @@ export class NhanDocComponent extends AddLessionComponent {
     this.secondRow.reverse();
     var frv = parseInt(this.firstRow.join(""));
     var app: any[] = [];
-    // 55
-    // 55
-    //===
     this.secondRow.forEach(e => {
       var value = Function(`return ${e}${this.operate}${frv}`)();
       this.resultRows.push([...(value + "").split("").map(o => {
         return this.makeRecord(o);
-        // var ival = parseInt(o);
-        // return {
-        //   val: ival,
-        //   items: this.generateResultArray(ival, false),
-        //   disp: "?"
-        // }
       }), ...app]);
       app.push(" ");
     })
@@ -106,13 +97,6 @@ export class NhanDocComponent extends AddLessionComponent {
     if (this.resultRows.length > 1) {
       this.finalRow = (parseInt(this.firstRow.join("")) * parseInt(this.secondRow.join("")) + "").split("").map(o => {
         return this.makeRecord(o);
-        // var ival = parseInt(o);
-        // return {
-        //   val: ival,
-        //   items: this.generateResultArray(ival, false),
-        //   disp: "?"
-        // }
-
       });
     }
     var fnData = [...this.resultRows.reduce((p, c) => [...p, ...c], []), ...this.finalRow];
@@ -121,45 +105,6 @@ export class NhanDocComponent extends AddLessionComponent {
   }
   showChoose(item: EResultChoose) {
     this.ans.showChoose(item);
-    // // console.log(item);
-    // if (item.disp == "?") {
-    //   this.answers = item.items;
-    //   this.currentItem = item;
-    //   this.firstTime = true;
-    // } else {
-    //   this.answers = [];
-    // }
-
   }
-  // doAnswer(item: ElType) {
 
-  //   item.class = item.color;
-  //   if (item.value == this.currentItem.val) {
-  //     this.currentItem.disp = item.value;
-  //   } else {
-  //     if (this.firstTime) {
-  //       this.invalidCount = this.invalidCount + 1;
-  //       this.firstTime = false;
-  //       if (!this.completed) {
-  //         this.completed = true;
-  //         this.sqlData.update(this.opertateEnum, false);
-  //       }
-  //     }
-  //   }
-  //   var done = false;
-  //   if (this.resultRows.length > 1) {
-  //     done = this.finalRow.filter(o => o.disp == "?").length == 0;
-  //   } else {
-  //     done = this.resultRows.reduce((p, a) => [...p, ...a], []).filter(o => o.disp == "?").length == 0;
-  //   }
-
-  //   // console.log("done", done, this.finalRow, "com:", this.completed);
-  //   if (done) {
-  //     if (!this.completed) {
-  //       this.completed = true;
-  //       this.sqlData.update(this.opertateEnum, this.invalidCount == 0);
-  //     }
-  //   }
-
-  // }
 }

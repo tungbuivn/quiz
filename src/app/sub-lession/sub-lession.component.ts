@@ -20,7 +20,7 @@ export class SubLessionComponent extends AddLessionComponent {
 
     var i = 0;
     i = i + 1
-    this.firstNumber = this.rand(lrange, urange);;
+    this.firstNumber = this.rand(lrange, urange);
 
     this.secondNumber = this.rand(lrange, this.firstNumber);
 

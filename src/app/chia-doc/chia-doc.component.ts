@@ -65,9 +65,6 @@ export class ChiaDocComponent extends AddLessionComponent {
     return i;
   }
   calculateResult(fnum: number, soChia: number) {
-
-
-
     // fnum = 10; soChia = 4;
     this.answers = [];
     var flen = (fnum + "").length;

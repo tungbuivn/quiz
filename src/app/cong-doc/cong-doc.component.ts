@@ -34,11 +34,8 @@ export class CongDocComponent extends AddLessionComponent {
 
 
   override refresh() {
-
-
     this.num1 = "";
     this.num2 = "";
-
 
     var lran = parseInt("".padStart(parseInt(this.lrange), '9'));
     var uran = parseInt("".padStart(parseInt(this.urange), '9'));
@@ -46,7 +43,6 @@ export class CongDocComponent extends AddLessionComponent {
     var firstNum = this.rand(lran / 10 + 1, lran) << 0;
     var secNum = this.rand(uran / 10 + 1, uran) << 0;
     this.prepareQuest(firstNum, secNum);
-
 
   }
   prepareQuest(firstNum: number, secNum: number) {
@@ -94,12 +90,8 @@ export class CongDocComponent extends AddLessionComponent {
         t1 = t1 + ` viết ${s1}`;
         // debugger;
       } else {
-
-
-
         t1 = t1 + ` viết ${s1Text[s1Text.length - 1]}`;
 
-        // if (this.opertateEnum == EOperate.CongDoc) {
         if ((nho > 0 && this.opertateEnum == EOperate.TruDoc)) {
           t1 = t1 + ` nhớ ${1}`;
         }
@@ -108,7 +100,6 @@ export class CongDocComponent extends AddLessionComponent {
           t1 = t1 + ` nhớ ${s1Text[0]}`;
           nho = parseInt(s1Text[0]);
         }
-        // }
 
       }
       guideText.push(t1);
@@ -138,13 +129,9 @@ export class CongDocComponent extends AddLessionComponent {
       return;
     }
     this.prepareQuest(n1, n2);
-
-
   }
   showChoose(item: EResultChoose) {
     this.ans.showChoose(item);
-
-
   }
   // doi khi gap bai kho, tre se bo qua de lam bai tiep, func nay ko cho phep tiep tuc neu chua lam xong
   next() {
